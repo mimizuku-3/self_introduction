@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get "introductions/new" => "introductions#new"
-  post "introductions/confirm"=> "introductions#confirm"
-
-  get "/" => 'introductions#index'
+  root to: 'introductions#index'
+  resources :introductions do
+    collection do
+      post "confirm"
+    end
+  end
 end

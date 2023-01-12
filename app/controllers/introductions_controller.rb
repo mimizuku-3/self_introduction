@@ -7,9 +7,9 @@ class IntroductionsController < ApplicationController
   end
 
   def confirm
-    # @introduction = Introduction.new(introduction_params)
-    @name = params[:name]
-    @content = params[:content]
+    @introduction = Introduction.new(introduction_params)
+    # @name = params[:name]
+    # @content = params[:content]
   end
 
   def introduction_params

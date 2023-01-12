@@ -1,22 +1,10 @@
 h1 自己紹介登録
 
-= form_tag("/introductions/confirm") do
-  table
-      tr
-        th 名前
-        td 
-          input type="text" name="name"/ 
-      tr
-        th 年齢
-        td 
-          input type="text" name="age"/
-      tr
-        th 住所
-        td 
-          input type="text" name="address"/
-      tr
-        th 自己紹介
-        td 
-          textarea# name="content" cols="30" rows="1" 
-
-  input type="submit" value="送る"/
+= form_with model: @introduction, url: confirm_introductions_path, local: true do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, id: 'introduction_name'
+  .form-group 
+    = f.label :content
+    = f.text_area :content, id: 'introduction_content'
+  = f.submit nil
