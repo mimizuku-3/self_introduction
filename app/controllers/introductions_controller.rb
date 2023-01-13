@@ -8,8 +8,12 @@ class IntroductionsController < ApplicationController
 
   def confirm
     @introduction = Introduction.new(introduction_params)
-    # @name = params[:name]
-    # @content = params[:content]
+  end
+
+  def create
+    @introduction = Introduction.new(introduction_params)
+    @introduction.save
+    redirect_to("/")
   end
 
   def introduction_params

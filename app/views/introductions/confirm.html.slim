@@ -17,4 +17,10 @@ table
     th 自己紹介
     td 
       =@introduction.content
+
+= form_with(model: @introduction, local: true) do |f|
+  = f.hidden_field :name
+  = f.hidden_field :content
+  = f.submit "作成", class: "complete-btn"
+  = f.submit "修正", name: :back, class: "back-btn"
        
