@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :introductions do
     collection do
       post "confirm"
+      get "complete"
     end
   end
 end

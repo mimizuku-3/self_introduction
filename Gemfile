@@ -65,3 +65,9 @@ gem 'slim-rails'
 gem 'html2slim'
 
 gem 'bootstrap'
+
+gem 'enum_help'
+
+gem 'rails-i18n'
+
+gem 'active_hash'

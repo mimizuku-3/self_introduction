@@ -11,10 +11,14 @@ ja:
       introduction: 自己紹介
     attributes:
       introduction:
-      name: 名前
-      age: 年齢
-      address: 住所
-      content: 自己紹介
+        id: ID
+        name: 名前
+        age: 年齢
+        sex: 性別
+        address: 住所
+        content: 自己紹介
+        created_at: 登録日時
+        updated_at: 更新日時
   date:
     abbr_day_names:
     - 日
@@ -189,3 +193,8 @@ ja:
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
+  enums:
+    introduction:
+      sex:
+        male: 男性
+        female: 女性
