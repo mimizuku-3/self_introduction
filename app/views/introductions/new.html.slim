@@ -1,0 +1,41 @@
+h1 自己紹介登録
+
+= form_with model: @introduction, url: confirm_introductions_path, local: true do |f|
+  table
+    tr
+      th = f.label :name
+      td
+        .form-group
+          = f.text_field :name, class: 'form-control', id: 'introduction_name'
+    tr
+      th = f.label :age
+      td
+        .form-group
+          = f.number_field :age, id: 'introduction_age'
+    tr
+      th = f.label :sex
+      td
+        .form-group
+          = f.label "男性"
+          = f.radio_button :sex, :male
+          = f.label "女性"
+          = f.radio_button :sex, :female
+          // Todo: enumを日本語表記できないか
+    tr
+      th = f.label :address
+      td
+        .form-group
+          = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"prefecture-select"})
+          = f.text_field :address, id: 'introduction_address'
+    / tr
+    /   th
+    /     = f.label :hobby
+    /   td
+    /     .form-group
+    /       = f.text_field :hobby, id: 'introduction_hobby'
+    tr
+      th = f.label :content
+      td
+        .form-group
+          = f.text_area :content, id: 'introduction_content'
+  = f.submit nil
