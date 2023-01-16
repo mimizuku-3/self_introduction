@@ -29,6 +29,10 @@ class IntroductionsController < ApplicationController
 
   end
 
+  def show
+    @introduction = Introduction.find(params[:id])
+  end
+
   def introduction_params
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
   end

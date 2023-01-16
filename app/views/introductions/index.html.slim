@@ -17,11 +17,11 @@ table.table.table-hover
     tbody
       - @introductions.each do |introduction|
         tr
-          td = introduction.name
+          td = link_to introduction.name, introduction
           td = introduction.age
           td = introduction.sex_i18n
           td = introduction.address
-          td = introduction.prefecture_id
+          td = introduction.prefecture.name
           td = introduction.content
           td = introduction.created_at
           td = introduction.updated_at
