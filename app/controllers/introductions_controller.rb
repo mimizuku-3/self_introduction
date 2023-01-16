@@ -6,8 +6,9 @@ class IntroductionsController < ApplicationController
     @introduction = Introduction.new
   end
 
-  def confirm
+  def confirm_new
     @introduction = Introduction.new(introduction_params)
+    render :new unless @introduction.valid?
   end
 
   def create
@@ -28,8 +29,4 @@ class IntroductionsController < ApplicationController
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
   end
 
-  def confirm_new
-    @introduction = Introduction.new(introduction_params)
-    render :new unless @introduction.valid?
-  end
 end
