@@ -1,5 +1,6 @@
 class IntroductionsController < ApplicationController
   def index
+    @introductions = Introduction.all
   end
 
   def new
