@@ -4,6 +4,10 @@ class Introduction < ApplicationRecord
 
   enum sex: { male: 0, female: 1}
 
-  validates :prefecture_id, numericality: { other_than: 1 } 
+  validates :name, presence: true
+  validates :age, presence: true
+  validates :sex, presence: true
+  validates :address, presence: true
+  validates :prefecture_id, {presence: true, numericality: { other_than: 1 }} 
 
 end
