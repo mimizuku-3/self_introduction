@@ -15,10 +15,7 @@ table.table.table-hover
       td = @introduction.sex_i18n
     tr  
       th= Introduction.human_attribute_name(:address)
-      td = @introduction.address
-    tr  
-      th= Introduction.human_attribute_name(:prefecture_id)
-      td = @introduction.prefecture.name
+      td = @introduction.prefecture.name + @introduction.address
     tr 
       th= Introduction.human_attribute_name(:content)
       td = @introduction.content
