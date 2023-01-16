@@ -17,8 +17,11 @@ class IntroductionsController < ApplicationController
       render :new
       return
     end
-    @introduction.save
-    redirect_to complete_introductions_path
+    if @introduction.save
+      redirect_to complete_introductions_path
+    else
+      render :new
+    end
   end
 
   def complete

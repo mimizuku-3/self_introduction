@@ -1,5 +1,9 @@
 h1 自己紹介登録
 
+- @introduction.errors.full_messages.each do |message| 
+  div.form-error
+    = message
+
 = form_with model: @introduction, url: confirm_new_introduction_path, local: true do |f|
   table
     tr
