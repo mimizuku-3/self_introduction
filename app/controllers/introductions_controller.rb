@@ -1,5 +1,6 @@
 class IntroductionsController < ApplicationController
   def index
+    @introductions = Introduction.all
   end
 
   def new
@@ -26,6 +27,10 @@ class IntroductionsController < ApplicationController
 
   def complete
 
+  end
+
+  def show
+    @introduction = Introduction.find(params[:id])
   end
 
   def introduction_params

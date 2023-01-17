@@ -1,1 +1,25 @@
+h1 自己紹介一覧
 
+= link_to '新規登録', new_introduction_path, class: 'btn btn-primary'
+
+.mb-3 
+table.table.table-hover 
+  thead.thead-default
+    tr
+      th= Introduction.human_attribute_name(:name)
+      th= Introduction.human_attribute_name(:age)
+      th= Introduction.human_attribute_name(:sex)
+      th= Introduction.human_attribute_name(:address)
+      th= Introduction.human_attribute_name(:content)
+      th= Introduction.human_attribute_name(:created_at)
+      th= Introduction.human_attribute_name(:updated_at)
+    tbody
+      - @introductions.each do |introduction|
+        tr
+          td = link_to introduction.name, introduction
+          td = introduction.age
+          td = introduction.sex_i18n
+          td = introduction.prefecture.name + introduction.address
+          td = introduction.content
+          td = introduction.created_at
+          td = introduction.updated_at
