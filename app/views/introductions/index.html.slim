@@ -13,6 +13,7 @@ table.table.table-hover
       th= Introduction.human_attribute_name(:content)
       th= Introduction.human_attribute_name(:created_at)
       th= Introduction.human_attribute_name(:updated_at)
+      th
     tbody
       - @introductions.each do |introduction|
         tr
@@ -23,3 +24,4 @@ table.table.table-hover
           td = introduction.content
           td = introduction.created_at
           td = introduction.updated_at
+          td = link_to '編集', edit_introduction_path(introduction), class: 'btn btn-primary mr-3'

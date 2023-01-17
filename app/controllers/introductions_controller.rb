@@ -33,6 +33,30 @@ class IntroductionsController < ApplicationController
     @introduction = Introduction.find(params[:id])
   end
 
+  def edit
+    @introduction = Introduction.find(params[:id])
+  end
+
+  def confirm_edit
+    @introduction = Introduction.find(params[:id])
+    @introduction.attributes = introduction_params
+    render :edit unless @introduction.valid?
+  end
+
+  def update
+    @introduction = Introduction.find(params[:id])
+    @introduction.attributes = introduction_params
+    if params[:back].present?
+      render :edit
+      return
+    end
+    if @introduction.update!(introduction_params)
+      redirect_to complete_introductions_path
+    else
+      render :edit
+    end
+  end
+
   def introduction_params
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
   end
