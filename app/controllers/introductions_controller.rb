@@ -1,4 +1,6 @@
 class IntroductionsController < ApplicationController
+  before_action :find_introduction, only:[:show, :edit, :confirm_edit, :update]
+
   def index
     @introductions = Introduction.all
   end
@@ -26,25 +28,20 @@ class IntroductionsController < ApplicationController
   end
 
   def complete
-
   end
 
   def show
-    @introduction = Introduction.find(params[:id])
   end
 
   def edit
-    @introduction = Introduction.find(params[:id])
   end
 
   def confirm_edit
-    @introduction = Introduction.find(params[:id])
     @introduction.attributes = introduction_params
     render :edit unless @introduction.valid?
   end
 
   def update
-    @introduction = Introduction.find(params[:id])
     @introduction.attributes = introduction_params
     if params[:back].present?
       render :edit
@@ -65,6 +62,10 @@ class IntroductionsController < ApplicationController
 
   def introduction_params
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
+  end
+
+  def find_introduction
+    @introduction = Introduction.find(params[:id])
   end
 
 end
