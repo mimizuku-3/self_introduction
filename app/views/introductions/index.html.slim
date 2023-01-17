@@ -10,9 +10,9 @@ table.table.table-hover
       th= Introduction.human_attribute_name(:age)
       th= Introduction.human_attribute_name(:sex)
       th= Introduction.human_attribute_name(:address)
-      th= Introduction.human_attribute_name(:content)
       th= Introduction.human_attribute_name(:created_at)
       th= Introduction.human_attribute_name(:updated_at)
+      th
       th
     tbody
       - @introductions.each do |introduction|
@@ -21,7 +21,7 @@ table.table.table-hover
           td = introduction.age
           td = introduction.sex_i18n
           td = introduction.prefecture.name + introduction.address
-          td = introduction.content
           td = introduction.created_at
           td = introduction.updated_at
           td = link_to '編集', edit_introduction_path(introduction), class: 'btn btn-primary mr-3'
+          td = link_to '削除', introduction, method: :delete, data: {confirm: "#{introduction.name}さんの自己紹介を削除します。よろしいですか？"}, class: 'btn btn-danger'

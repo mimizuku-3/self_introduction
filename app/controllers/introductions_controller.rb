@@ -57,6 +57,12 @@ class IntroductionsController < ApplicationController
     end
   end
 
+  def destroy
+    introduction = Introduction.find(params[:id])
+    introduction.destroy
+    redirect_to introductions_url, notice: "#{introduction.name} さんの自己紹介を削除しました。"
+  end
+
   def introduction_params
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
   end

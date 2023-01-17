@@ -27,3 +27,4 @@ table.table.table-hover
       td = @introduction.updated_at
 
 = link_to '編集', edit_introduction_path, class: 'btn btn-primary mr-3'
+= link_to '削除', @introduction, method: :delete, data: {confirm: "#{@introduction.name}さんの自己紹介を削除します。よろしいですか？"}, class: 'btn btn-danger'
