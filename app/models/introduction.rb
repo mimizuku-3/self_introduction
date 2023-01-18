@@ -1,6 +1,7 @@
 class Introduction < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
+  has_one_attached :image_name
 
   enum sex: { male: 0, female: 1}
 

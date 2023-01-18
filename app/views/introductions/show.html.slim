@@ -13,13 +13,18 @@ table.table.table-hover
     tr
       th= Introduction.human_attribute_name(:sex)
       td = @introduction.sex_i18n
-    tr  
+    tr
       th= Introduction.human_attribute_name(:address)
       td = @introduction.prefecture.name + @introduction.address
-    tr 
+    tr
       th= Introduction.human_attribute_name(:content)
       td = @introduction.content
-    tr  
+    tr
+      th= Introduction.human_attribute_name(:image_name)
+      td
+        - if @introduction.image_name.attached?
+          = image_tag @introduction.image_name, class: 'img-fluid'
+    tr
       th= Introduction.human_attribute_name(:created_at)
       td = @introduction.created_at
     tr
