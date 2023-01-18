@@ -45,6 +45,8 @@ h1 自己紹介の編集
     tr
       th = f.label :image_name
       td
+        - if @introduction.image_name.attached?
+          = image_tag @introduction.image_name, class: 'img-fluid'
         .form-group
           = f.file_field :image_name, id: 'introduction_image_name', class: 'form-control'
   = f.submit '確認', class: 'btn btn-primary'
