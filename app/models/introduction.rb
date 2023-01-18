@@ -8,7 +8,7 @@ class Introduction < ApplicationRecord
   validates :age, presence: true
   validates :sex, presence: true
   validates :address, presence: true
-  validates :prefecture_id, {presence: true} 
+  validates :prefecture_id, presence: true
 
   scope :recent, -> {order(created_at: :desc)}
 end

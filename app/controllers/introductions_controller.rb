@@ -2,6 +2,7 @@ class IntroductionsController < ApplicationController
   def index
     @q = Introduction.ransack(params[:q])
     @introductions = @q.result(distinct: true).recent
+    @sexes = Introduction.sexes_i18n
     # @introductions = Introduction.all
   end
 
