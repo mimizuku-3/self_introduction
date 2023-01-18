@@ -2,7 +2,10 @@ class IntroductionsController < ApplicationController
   before_action :find_introduction, only:[:show, :edit, :confirm_edit, :update]
 
   def index
-    @introductions = Introduction.all
+    @q = Introduction.ransack(params[:q])
+    @introductions = @q.result(distinct: true).recent
+    @sexes = Introduction.sexes_i18n
+    # @introductions = Introduction.all
   end
 
   def new
