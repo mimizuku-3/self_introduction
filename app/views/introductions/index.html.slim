@@ -6,7 +6,7 @@ h1 自己紹介一覧
     .col-sm-10
       = f.search_field :name_cont
   .form-group.row
-    = f.label :sex_eq_any, "性別", class: 'col-sm-2 col-form-label'
+    = f.label :sex_eq, "性別", class: 'col-sm-2 col-form-label'
     .col-sm-10
       = "指定なし"
       = f.radio_button :sex_eq, '', {:checked => true}
@@ -22,7 +22,7 @@ h1 自己紹介一覧
       = f.number_field :age_lteq
       = "歳以下"
   .form-group.row
-    = f.label :prefecture_id, '住所（都道府県）', class: 'col-sm-2 col-form-label'
+    = f.label :prefecture_id_eq, '住所（都道府県）', class: 'col-sm-2 col-form-label'
     .col-sm-10
       = f.collection_select(:prefecture_id_eq, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select"})
   .form-group
