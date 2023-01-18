@@ -29,7 +29,7 @@ h1 自己紹介の編集
       th = f.label :address
       td
         .form-group
-          = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"prefecture-select"})
+          = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select"})
           = f.text_field :address, id: 'introduction_address'
     / tr
     /   th

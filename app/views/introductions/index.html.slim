@@ -12,7 +12,7 @@ h1 自己紹介一覧
   .form-group.row
     = f.label :prefecture_id, '都道府県', class: 'col-sm-2 col-form-label'
     .col-sm-10
-      = f.collection_select(:prefecture_id_eq, Prefecture.all, :id, :name, {}, {class:"prefecture-select"})
+      = f.collection_select(:prefecture_id_eq, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select"})
     / = f.label :sex, '性別'
     / = f.search_field :sex
   .form-group
