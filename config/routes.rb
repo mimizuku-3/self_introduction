@@ -4,5 +4,6 @@ Rails.application.routes.draw do
     post :confirm, action: :confirm_new, on: :new
     patch :confirm, action: :confirm_edit, on: :member
     get :complete, action: :complete, on: :collection
+    get :search, action: :search, on: :collection
   end
 end

@@ -1,6 +1,8 @@
 class IntroductionsController < ApplicationController
   def index
-    @introductions = Introduction.all
+    @q = Introduction.ransack(params[:q])
+    @introductions = @q.result(distinct: true).recent
+    # @introductions = Introduction.all
   end
 
   def new

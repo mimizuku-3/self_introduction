@@ -10,4 +10,5 @@ class Introduction < ApplicationRecord
   validates :address, presence: true
   validates :prefecture_id, {presence: true, numericality: { other_than: 1 }} 
 
+  scope :recent, -> {order(created_at: :desc)}
 end
