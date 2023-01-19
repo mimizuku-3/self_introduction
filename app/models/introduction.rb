@@ -1,6 +1,8 @@
 class Introduction < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
+  has_many :hobby_introductions
+  has_many :hobbies, through: :hobby_introductions, dependent: :destroy
 
   enum sex: { male: 0, female: 1}
 
