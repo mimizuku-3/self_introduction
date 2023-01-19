@@ -27,6 +27,7 @@ h1 自己紹介一覧
       = f.collection_select(:prefecture_id_eq, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select"})
   .form-group
   = f.submit class: 'btn btn-outline-primary'
+  = f.submit 'リセット', type: :reset, class: 'btn btn-primary'
 
 = link_to '新規登録', new_introduction_path, class: 'btn btn-primary'
 
