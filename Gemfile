@@ -76,4 +76,8 @@ gem 'rails-i18n'
 
 gem 'active_hash'
 
+# Use search function
 gem 'ransack'
+
+# Use Active Storage variant
+gem 'image_processing', '~> 1.2'
