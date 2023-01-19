@@ -23,7 +23,7 @@ table.table.table-hover
       th= Introduction.human_attribute_name(:image_name)
       td
         - if @introduction.image_name.attached?
-          = image_tag @introduction.image_name.variant(resize: "500>").processed
+          = image_tag @introduction.image_name.variant(resize: "500x300>").processed
     tr
       th= Introduction.human_attribute_name(:created_at)
       td = @introduction.created_at
