@@ -77,3 +77,6 @@ gem 'rails-i18n'
 gem 'active_hash'
 
 gem 'ransack'
+
+# Use debug function
+gem 'pry-rails'
