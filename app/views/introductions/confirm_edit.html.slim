@@ -25,12 +25,12 @@ h1 編集内容の確認
       td
         =@introduction.address
         = f.hidden_field :address
-    / tr
-    /   th
-    /     = f.label :hobby
-    /   td
-    /     .form-group
-    /       = f.text_field :hobby, id: 'introduction_hobby'
+    tr
+      = f.fields_for @hobby_introductions do |hi|
+        th = hi.label :hobby_id
+        td
+          =@hobby_introductions.hobby_id
+          = hi.hidden_field :hobby_id
     tr
       th = f.label :content
       td

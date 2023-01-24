@@ -31,12 +31,12 @@ h1 自己紹介登録
         .form-group
           = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select"})
           = f.text_field :address, id: 'introduction_address'
-    / tr
-    /   th
-    /     = f.label :hobby
-    /   td
-    /     .form-group
-    /       = f.text_field :hobby, id: 'introduction_hobby'
+    tr
+      = f.fields_for @hobby_introductions, local: true do |hi|
+        th = hi.label :hobby_id
+        td
+          .form-group
+            = hi.text_field :hobby_id, id: 'hobby_introductions_hobby_id'
     tr
       th = f.label :content
       td

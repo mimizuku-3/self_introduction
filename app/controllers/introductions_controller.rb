@@ -10,10 +10,13 @@ class IntroductionsController < ApplicationController
 
   def new
     @introduction = Introduction.new
+    @hobby_introductions = @introduction.hobby_introductions.build
   end
 
   def confirm_new
     @introduction = Introduction.new(introduction_params)
+    @hobby_introductions = @introduction.hobby_introductions.build
+    binding.pry
     render :new unless @introduction.valid?
   end
 
@@ -64,7 +67,9 @@ class IntroductionsController < ApplicationController
   end
 
   def introduction_params
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
+    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content,
+      hobby_introductions: [:hobby_id]
+    )
   end
 
   def find_introduction

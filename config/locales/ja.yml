@@ -19,6 +19,8 @@ ja:
         content: 自己紹介
         created_at: 登録日時
         updated_at: 更新日時
+      hobby_introduction:
+        hobby_id: 趣味
   date:
     abbr_day_names:
     - 日
