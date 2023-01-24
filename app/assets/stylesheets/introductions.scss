@@ -2,26 +2,26 @@
   margin-bottom: 20px;
 }
 
-table {
+.table-wrapper table {
   border-collapse: collapse;
   margin: 0 auto;
 }
 
-table, th, td {
+.table-wrapper table, .table-wrapper th, .table-wrapper td {
   border: 1px solid gray;
 }
 
-th {
+.table-wrapper th {
   width: 100px;
   height: auto;
   padding: 5px;
 }
 
-td {
+.table-wrapper td {
   width: auto;
 }
 
-th {
+.table-wrapper th {
   background-color: #CEFFFF;
 }
 
@@ -55,10 +55,16 @@ th {
 
 .btn {
   background-color: #dadbdb;
-  width: 100px;
-  text-align: center;
+  padding: 5px 50px;
   border-radius: 10%;
   border: solid 1px gray;
   text-align: center;
   margin: 10px;
+}
+
+.link-btn {
+  display: inline-block;
+  text-align: center;
+  color: black;
+  text-decoration: none;
 }
