@@ -80,3 +80,4 @@ gem 'ransack'
 
 # Use debug function
 gem 'pry-rails'
+gem 'pry-nav'

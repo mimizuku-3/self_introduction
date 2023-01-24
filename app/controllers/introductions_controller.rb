@@ -10,20 +10,34 @@ class IntroductionsController < ApplicationController
 
   def new
     @introduction = Introduction.new
+    @introduction.hobby_introductions.build
   end
 
   def confirm_new
     @introduction = Introduction.new(introduction_params)
+    @hobby_ids=params[:introduction][:hobby_ids]
+    @introduction.hobby_introductions.build
+    binding.pry
+    @hobby_introductions = @introduction.hobby_introductions
     render :new unless @introduction.valid?
   end
 
   def create
     @introduction = Introduction.new(introduction_params)
+    @hobby_ids=params[:introduction][:hobby_ids]
+    binding.pry
+    @introduction.hobby_introductions.build
+
     if params[:back].present?
       render :new
       return
     end
+    
     if @introduction.save
+      @hobby_ids.each do |hobby_id|
+        hobby = Hobby.find(hobby_id)
+        @introduction.hobbies << hobby
+      end
       redirect_to complete_introductions_path
     else
       render :new
@@ -63,12 +77,13 @@ class IntroductionsController < ApplicationController
     redirect_to introductions_url, notice: "#{introduction.name} さんの自己紹介を削除しました。"
   end
 
-  def introduction_params
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
-  end
-
   def find_introduction
     @introduction = Introduction.find(params[:id])
+  end
+
+  private
+  def introduction_params
+    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
   end
 
 end

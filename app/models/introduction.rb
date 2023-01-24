@@ -4,6 +4,8 @@ class Introduction < ApplicationRecord
   has_many :hobby_introductions
   has_many :hobbies, through: :hobby_introductions, dependent: :destroy
 
+  accepts_nested_attributes_for :hobby_introductions, allow_destroy: true
+
   enum sex: { male: 0, female: 1}
 
   validates :name, presence: true
