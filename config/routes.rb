@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     patch :confirm, action: :confirm_edit, on: :member
     get :complete, action: :complete, on: :collection
     get :search, action: :search, on: :collection
+    
+    resources :hobby_introductions
   end
 end

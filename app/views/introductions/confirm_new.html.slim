@@ -25,12 +25,12 @@ h1 登録内容の確認
       td
         =@introduction.address
         = f.hidden_field :address
-    / tr
-    /   th
-    /     = f.label :hobby
-    /   td
-    /     .form-group
-    /       = f.text_field :hobby, id: 'introduction_hobby'
+    tr
+      = f.fields_for @hobby_introduction do |fin|
+        th = fin.label :hobby_id
+        td
+          =@hobby_introduction.hobby_id
+          = fin.hidden_field :hobby_id
     tr
       th = f.label :content
       td

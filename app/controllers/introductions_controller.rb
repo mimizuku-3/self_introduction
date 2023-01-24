@@ -10,20 +10,29 @@ class IntroductionsController < ApplicationController
 
   def new
     @introduction = Introduction.new
+    @hobby_introduction = HobbyIntroduction.new
   end
 
   def confirm_new
     @introduction = Introduction.new(introduction_params)
-    render :new unless @introduction.valid?
+    logger.debug("introduction：")
+    logger.debug(@introduction.name)
+    @hobby_introduction = HobbyIntroduction.new(hobby_introduction_params[:hobby_id])
+    logger.debug("test------------------")
+    logger.debug(@hobby_introduction.hobby_id)
+    if @introduction.valid? && @hobby_introduction.valid?
+      render :new
+    end
   end
 
   def create
     @introduction = Introduction.new(introduction_params)
+    @hobby_introduction = HobbyIntroduction.new(hobby_introduction_params)
     if params[:back].present?
       render :new
       return
     end
-    if @introduction.save
+    if @introduction.save && @hobby_introduction.save
       redirect_to complete_introductions_path
     else
       render :new
@@ -64,7 +73,13 @@ class IntroductionsController < ApplicationController
   end
 
   def introduction_params
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
+    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content,
+      hobby_introductions: [:hobby_id]
+    )
+  end
+
+  def hobby_introduction_params
+    params.require(:introduction).permit(hobby_introduction:[:hobby_id])
   end
 
   def find_introduction
