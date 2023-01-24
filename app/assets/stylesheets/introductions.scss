@@ -1,3 +1,64 @@
-// Place all the styles related to the introductions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.table-wrapper {
+  margin-bottom: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table, th, td {
+  border: 1px solid gray;
+}
+
+th {
+  width: 100px;
+  height: auto;
+  padding: 5px;
+}
+
+td {
+  width: auto;
+}
+
+th {
+  background-color: #CEFFFF;
+}
+
+.form {
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.radio {
+  margin-left: 20px;
+}
+
+.age {
+  width: 50px;
+}
+
+.address {
+  width: 600px;
+}
+
+.content {
+  width: 700px;
+  height: 100px;
+}
+
+.btn-wrapper {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.btn {
+  background-color: #dadbdb;
+  width: 100px;
+  text-align: center;
+  border-radius: 10%;
+  border: solid 1px gray;
+  text-align: center;
+  margin: 10px;
+}
