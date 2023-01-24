@@ -31,5 +31,5 @@ h1 登録内容の確認
           = simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div")
           = f.hidden_field :content
   div.btn-wrapper
-    = f.submit '戻る', name: 'back', class: 'btn'
-    = f.submit '登録', class: 'btn'
+    = f.submit '戻る', name: 'back', class: 'btn btn-secondary mr-3 btn-position'
+    = f.submit '登録', class: 'btn btn-primary btn-position'
