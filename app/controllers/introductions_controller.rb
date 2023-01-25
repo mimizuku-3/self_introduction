@@ -9,7 +9,6 @@ class IntroductionsController < ApplicationController
 
   def new
     @introduction = Introduction.new
-    @introduction.hobby_introductions.build
   end
 
   def confirm_new
@@ -21,7 +20,6 @@ class IntroductionsController < ApplicationController
   def create
     @introduction = Introduction.new(introduction_params)
     @hobby_ids=params[:hobby_ids]
-    binding.pry
 
     if params[:back].present?
       render :new
@@ -32,7 +30,7 @@ class IntroductionsController < ApplicationController
       @hobby_ids.each do |hobby_id|
         hobby = Hobby.find(hobby_id)
         @introduction.hobbies << hobby
-    end
+      end
       redirect_to complete_introductions_path
     else
       render :new
@@ -43,6 +41,7 @@ class IntroductionsController < ApplicationController
   end
 
   def show
+    @input_hobbies = @introduction.hobbies
   end
 
   def edit
@@ -50,6 +49,7 @@ class IntroductionsController < ApplicationController
 
   def confirm_edit
     @introduction.attributes = introduction_params
+    @input_hobbies = @introduction.hobbies
     render :edit unless @introduction.valid?
   end
 
@@ -60,6 +60,10 @@ class IntroductionsController < ApplicationController
       return
     end
     if @introduction.update!(introduction_params)
+      @hobby_ids.each do |hobby_id|
+        hobby = Hobby.find(hobby_id)
+        @introduction.hobbies << hobby
+      end
       redirect_to complete_introductions_path
     else
       render :edit

@@ -35,9 +35,11 @@ h1 自己紹介登録
       th = f.label :hobby_ids
       td
        .form-group
-        = f.collection_check_boxes :hobby_ids, Hobby.all, :id, :hobby_name, checked: @introduction.hobby_ids , include_hidden: false do |b|
-          = b.check_box 
-          = b.text
+        / = f.collection_check_boxes :hobby_ids, Hobby.all, :id, :hobby_name, checked: @introduction.hobby_ids , include_hidden: false do |b|
+        /   = b.check_box 
+        /   = b.text
+        = f.collection_check_boxes(:hobby_ids, Hobby.all, :id, :hobby_name) do |b|
+          = b.label { b.check_box + b.text }
     tr
       th = f.label :content
       td
