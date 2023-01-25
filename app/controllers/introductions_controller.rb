@@ -5,7 +5,6 @@ class IntroductionsController < ApplicationController
     @q = Introduction.ransack(params[:q])
     @introductions = @q.result(distinct: true).recent
     @sexes = Introduction.sexes_i18n
-    # @introductions = Introduction.all
   end
 
   def new
@@ -15,18 +14,14 @@ class IntroductionsController < ApplicationController
 
   def confirm_new
     @introduction = Introduction.new(introduction_params)
-    @hobby_ids=params[:introduction][:hobby_ids]
-    @introduction.hobby_introductions.build
-    binding.pry
-    @hobby_introductions = @introduction.hobby_introductions
+    @input_hobbies = @introduction.hobbies
     render :new unless @introduction.valid?
   end
 
   def create
     @introduction = Introduction.new(introduction_params)
-    @hobby_ids=params[:introduction][:hobby_ids]
+    @hobby_ids=params[:hobby_ids]
     binding.pry
-    @introduction.hobby_introductions.build
 
     if params[:back].present?
       render :new
@@ -37,7 +32,7 @@ class IntroductionsController < ApplicationController
       @hobby_ids.each do |hobby_id|
         hobby = Hobby.find(hobby_id)
         @introduction.hobbies << hobby
-      end
+    end
       redirect_to complete_introductions_path
     else
       render :new

@@ -29,7 +29,10 @@ h1 登録内容の確認
       th = f.label :hobby_ids
       td
         = @introduction.hobby_ids
-        = f.hidden_field :hobby_ids
+        / = f.hidden_field :hobby_ids
+        = @input_hobbies[0].hobby_name
+        = hidden_field_tag 'hobby_ids[]', @input_hobbies[0].id
+        = hidden_field_tag 'hobby_ids[]', @input_hobbies[1].id
     tr
       th = f.label :content
       td
