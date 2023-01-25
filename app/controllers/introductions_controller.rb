@@ -27,9 +27,11 @@ class IntroductionsController < ApplicationController
     end
     
     if @introduction.save
-      @hobby_ids.each do |hobby_id|
-        hobby = Hobby.find(hobby_id)
-        @introduction.hobbies << hobby
+      if @hobby_ids != nil
+        @hobby_ids.each do |hobby_id|
+          hobby = Hobby.find(hobby_id)
+          @introduction.hobbies << hobby
+        end
       end
       redirect_to complete_introductions_path
     else
@@ -63,9 +65,13 @@ class IntroductionsController < ApplicationController
     end
 
     if @introduction.update!(introduction_params)
-      @hobby_ids.each do |hobby_id|
-        hobby = Hobby.find(hobby_id)
-        @introduction.hobbies << hobby
+      binding.pry
+      if @hobby_ids != nil
+        binding.pry
+        @hobby_ids.each do |hobby_id|
+          hobby = Hobby.find(hobby_id)
+          @introduction.hobbies << hobby
+        end
       end
       redirect_to complete_introductions_path
     else
