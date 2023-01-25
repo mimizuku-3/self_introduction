@@ -37,6 +37,7 @@ class IntroductionsController < ApplicationController
     end
   end
 
+
   def complete
   end
 
@@ -55,10 +56,12 @@ class IntroductionsController < ApplicationController
 
   def update
     @introduction.attributes = introduction_params
+    @hobby_ids=params[:hobby_ids]
     if params[:back].present?
       render :edit
       return
     end
+
     if @introduction.update!(introduction_params)
       @hobby_ids.each do |hobby_id|
         hobby = Hobby.find(hobby_id)

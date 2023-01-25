@@ -19,8 +19,8 @@ table.table.table-hover
     tr
       th = Introduction.human_attribute_name(:hobby_ids)
       td
-        - @input_hobbies.each_with_index do |hobby, i|
-          = @input_hobbies[i].hobby_name
+        - @input_hobbies.each do |hobby|
+          = hobby.hobby_name
           span 　
     tr 
       th= Introduction.human_attribute_name(:content)
