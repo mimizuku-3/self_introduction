@@ -17,6 +17,12 @@ div.table-wrapper
       tr  
         th= Introduction.human_attribute_name(:address)
         td = @introduction.prefecture.name + @introduction.address
+      tr
+        th = Introduction.human_attribute_name(:hobby_ids)
+        td
+          - @input_hobbies.each do |hobby|
+            = hobby.hobby_name
+            span 　
       tr 
         th= Introduction.human_attribute_name(:content)
         td = simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div")

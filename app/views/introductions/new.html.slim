@@ -33,8 +33,18 @@ h1 自己紹介登録
             = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select form"})
             = f.text_field :address, class: 'address form', id: 'introduction_address'
       tr
+        th = f.label :hobby_ids
+        td
+        .form-group
+          / = f.collection_check_boxes :hobby_ids, Hobby.all, :id, :hobby_name, checked: @introduction.hobby_ids , include_hidden: false do |b|
+          /   = b.check_box 
+          /   = b.text
+          = f.collection_check_boxes(:hobby_ids, Hobby.all, :id, :hobby_name) do |b|
+            = b.label { b.check_box + b.text }
+      tr
         th = f.label :content
         td
             = f.text_area :content, class: 'content form', id: 'introduction_content'
   div.btn-wrapper
     = f.submit '確認', class: 'btn btn-primary btn-position'
+    = f.submit 'リセット', type: :reset, class: 'btn btn-primary'

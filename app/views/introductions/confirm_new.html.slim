@@ -26,6 +26,13 @@ h1 登録内容の確認
           =@introduction.address
           = f.hidden_field :address
       tr
+        th = f.label :hobby_ids
+        td
+          - @input_hobbies.each do |hobby|
+            = hobby.hobby_name
+            span 　
+            = hidden_field_tag 'hobby_ids[]', hobby.id
+      tr
         th = f.label :content
         td
           = simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div")
