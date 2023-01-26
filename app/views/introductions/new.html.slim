@@ -5,45 +5,46 @@ h1 自己紹介登録
     = message
 
 = form_with model: @introduction, url: confirm_new_introduction_path, local: true do |f|
-  table
-    tr
-      th = f.label :name
-      td
+  div.table-wrapper
+    table
+      tr
+        th = f.label :name
+        td
+          .form-group
+            = f.text_field :name, class: 'form', id: 'introduction_name'
+      tr
+        th = f.label :age
+        td
+          .form-group
+            = f.number_field :age, class: 'form age', id: 'introduction_age'
+      tr
+        th = f.label :sex
+        td
+          .form-group
+            = f.radio_button :sex, :male, class: 'form'
+            = f.label "男性"
+            = f.radio_button :sex, :female, class: 'form'
+            = f.label "女性"
+            // Todo: enumを日本語表記できないか
+      tr
+        th = f.label :address
+        td
+          .form-group
+            = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select form"})
+            = f.text_field :address, class: 'address form', id: 'introduction_address'
+      tr
+        th = f.label :hobby_ids
+        td
         .form-group
-          = f.text_field :name, class: 'form-control', id: 'introduction_name'
-    tr
-      th = f.label :age
-      td
-        .form-group
-          = f.number_field :age, id: 'introduction_age'
-    tr
-      th = f.label :sex
-      td
-        .form-group
-          = f.label "男性"
-          = f.radio_button :sex, :male
-          = f.label "女性"
-          = f.radio_button :sex, :female
-          // Todo: enumを日本語表記できないか
-    tr
-      th = f.label :address
-      td
-        .form-group
-          = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select"})
-          = f.text_field :address, id: 'introduction_address'
-    tr
-      th = f.label :hobby_ids
-      td
-       .form-group
-        / = f.collection_check_boxes :hobby_ids, Hobby.all, :id, :hobby_name, checked: @introduction.hobby_ids , include_hidden: false do |b|
-        /   = b.check_box 
-        /   = b.text
-        = f.collection_check_boxes(:hobby_ids, Hobby.all, :id, :hobby_name) do |b|
-          = b.label { b.check_box + b.text }
-    tr
-      th = f.label :content
-      td
-        .form-group
-          = f.text_area :content, id: 'introduction_content'
-  = f.submit '確認', class: 'btn btn-primary'
-  = f.submit 'リセット', type: :reset, class: 'btn btn-primary'
+          / = f.collection_check_boxes :hobby_ids, Hobby.all, :id, :hobby_name, checked: @introduction.hobby_ids , include_hidden: false do |b|
+          /   = b.check_box 
+          /   = b.text
+          = f.collection_check_boxes(:hobby_ids, Hobby.all, :id, :hobby_name) do |b|
+            = b.label { b.check_box + b.text }
+      tr
+        th = f.label :content
+        td
+            = f.text_area :content, class: 'content form', id: 'introduction_content'
+  div.btn-wrapper
+    = f.submit '確認', class: 'btn btn-primary btn-position'
+    = f.submit 'リセット', type: :reset, class: 'btn btn-primary'
