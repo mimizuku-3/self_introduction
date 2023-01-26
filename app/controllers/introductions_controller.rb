@@ -63,34 +63,7 @@ class IntroductionsController < ApplicationController
       render :edit
       return
     end
-
     if @introduction.update(introduction_params)
-      if @hobby_ids != nil
-        @hobby_ids.each do |hobby_id|
-          hobby_introduction = HobbyIntroduction.find_by(introduction_id: @introduction.id, hobby_id: hobby_id)
-          # binding.pry
-          if hobby_id.present? #チェックボックスがチェックされている。
-            unless hobby_introduction.present? #【新規】hobby_introductionにレコードがない。
-              # binding.pry
-              hobby = Hobby.find(hobby_id)
-              @introduction.hobbies << hobby
-              logger.debug("作成")
-              binding.pry
-              @introduction.updated_at = Time.zone.now
-              @introduction.save
-            end
-          else #チェックボックスがチェックされていない
-            # binding.pry
-            if hobby_introduction.present?
-              hobby_introduction.destroy
-              logger.debug("削除")
-              binding.pry
-              @introduction.updated_at = Time.zone.now
-              @introduction.save
-            end
-          end
-        end
-      end
       redirect_to complete_introductions_path
     else
       render :edit
