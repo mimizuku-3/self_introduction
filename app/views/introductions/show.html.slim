@@ -20,7 +20,8 @@ div.table-wrapper
       tr
         th = Introduction.human_attribute_name(:hobby_ids)
         td
-          - @input_hobbies.each do |hobby|
+          - sorted_hobbies = @input_hobbies.sort_by {|hobby| hobby[:id]}
+          - sorted_hobbies.each do |hobby|
             = hobby.hobby_name
             span 　
       tr 
@@ -33,5 +34,5 @@ div.table-wrapper
         th= Introduction.human_attribute_name(:updated_at)
         td = @introduction.updated_at
 div.btn-wrapper
-  = link_to '編集', edit_introduction_path, class: 'btn btn-primary mr-3 btn-position'
+  = link_to '編集', edit_introduction_path, class: 'btn btn-primary btn-position'
   = link_to '削除', @introduction, method: :delete, data: {confirm: "#{@introduction.name}さんの自己紹介を削除します。よろしいですか？"}, class: 'btn btn-danger btn-position'

@@ -28,7 +28,8 @@ h1 登録内容の確認
       tr
         th = f.label :hobby_ids
         td
-          - @input_hobbies.each do |hobby|
+          - sorted_hobbies = @input_hobbies.sort_by {|hobby| hobby[:id]}
+          - sorted_hobbies.each do |hobby|
             = hobby.hobby_name
             span 　
             = hidden_field_tag 'hobby_ids[]', hobby.id

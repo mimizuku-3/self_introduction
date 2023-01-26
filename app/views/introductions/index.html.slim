@@ -9,12 +9,12 @@ div.search-container
     .form-group.row
       = f.label :sex_eq, "性別", class: 'col-sm-2 col-form-label'
       .col-sm-10
-        = f.radio_button :sex_eq, '', {:checked => true, class: 'form'}
-        = "指定なし"
-        = f.radio_button :sex_eq, 0, class: 'form'
-        = "男性"
-        = f.radio_button :sex_eq, 1, class: 'form'
-        = "女性"
+        = f.radio_button :sex_eq, '', {:checked => true, class: 'radio', id: 'q_sex'}
+        = f.label :sex, "指定なし"
+        = f.radio_button :sex_eq, 0, {class: 'radio', id: 'q_sex_0'}
+        = f.label :sex_0, "男性"
+        = f.radio_button :sex_eq, 1, {class: 'radio', id: 'q_sex_1'}
+        = f.label :sex_1, "女性"
     .form-group.row
       = f.label :age, "年齢", class: 'col-sm-2 col-form-label'
       .col-sm-10
@@ -29,21 +29,17 @@ div.search-container
     .form-group.row
       = f.label :hobby_ids, "趣味", class: 'col-sm-2 col-form-label'
       .col-sm-10
-        / = f.number_field :hobby_introductions_hobby_id_eq
-        f.label
-          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true}, 1, ''
-          span 映画鑑賞
-        f.label
-          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true}, 2, ''
-          = "読書"
-        f.label
-          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true}, 3, ''
-          = "買い物"
+          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true, class: 'checkbox'}, 1, ''
+          = f.label :hobby_introductions_hobby_id_eq_any_1, "映画鑑賞"
+          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true, class: 'checkbox'}, 2, ''
+          = f.label :hobby_introductions_hobby_id_eq_any_2, "読書"
+          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true, class: 'checkbox'}, 3, ''
+          = f.label :hobby_introductions_hobby_id_eq_any_3, "買い物"
     .form-group
-      = f.submit class: 'btn btn-outline-primary'
-      = f.submit 'リセット', type: :reset, class: 'btn btn-primary'
+      = f.submit class: 'btn btn-primary btn-position'
+      = f.submit 'リセット', type: :reset, class: 'btn btn-outline-primary btn-position'
 
-= link_to '新規登録', new_introduction_path, class: 'btn btn-primary'
+= link_to '新規登録', new_introduction_path, class: 'btn btn-primary btn-position'
 
 // 一覧表示
 .mb-3
@@ -62,15 +58,17 @@ table.table.table-hover
     tbody
       - @introductions.each do |introduction|
         tr
-          td = link_to introduction.name, introduction
+          td = introduction.name
           td = introduction.age
           td = introduction.sex_i18n
           td = introduction.prefecture.name + introduction.address
           td
-            - introduction.hobbies.each do |hobby|
+            - sorted_hobbies = introduction.hobbies.sort_by {|hobby| hobby[:id]}
+            - sorted_hobbies.each do |hobby|
               = hobby.hobby_name
               span 　
           td = introduction.created_at
           td = introduction.updated_at
+          td = link_to '詳細', introduction, class: 'btn btn-primary mr-3'
           td = link_to '編集', edit_introduction_path(introduction), class: 'btn btn-primary mr-3'
           td = link_to '削除', introduction, method: :delete, data: {confirm: "#{introduction.name}さんの自己紹介を削除します。よろしいですか？"}, class: 'btn btn-danger'
