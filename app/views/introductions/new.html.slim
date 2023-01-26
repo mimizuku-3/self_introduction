@@ -21,10 +21,10 @@ h1 自己紹介登録
         th = f.label :sex
         td
           .form-group
-            = f.radio_button :sex, :male, class: 'form'
-            = f.label "男性"
-            = f.radio_button :sex, :female, class: 'form'
-            = f.label "女性"
+            = f.radio_button :sex, :male, class: 'radio'
+            = f.label :sex_male, "男性"
+            = f.radio_button :sex, :female, class: 'radio'
+            = f.label :sex_female, "女性"
             // Todo: enumを日本語表記できないか
       tr
         th = f.label :address
@@ -35,16 +35,17 @@ h1 自己紹介登録
       tr
         th = f.label :hobby_ids
         td
-        .form-group
-          / = f.collection_check_boxes :hobby_ids, Hobby.all, :id, :hobby_name, checked: @introduction.hobby_ids , include_hidden: false do |b|
-          /   = b.check_box 
-          /   = b.text
-          = f.collection_check_boxes(:hobby_ids, Hobby.all, :id, :hobby_name) do |b|
-            = b.label { b.check_box + b.text }
+          .form-group
+            = f.collection_check_boxes(:hobby_ids, Hobby.all, :id, :hobby_name) do |b|
+              label
+                = b.check_box class: 'checkbox' do
+                  = b.check_box + b.text
+                end
+                = b.label {b.text}
       tr
         th = f.label :content
         td
             = f.text_area :content, class: 'content form', id: 'introduction_content'
   div.btn-wrapper
     = f.submit '確認', class: 'btn btn-primary btn-position'
-    = f.submit 'リセット', type: :reset, class: 'btn btn-primary'
+    = f.submit 'リセット', type: :reset, class: 'btn btn-outline-primary btn-position'
