@@ -1,5 +1,5 @@
 class IntroductionsController < ApplicationController
-  before_action :find_introduction, only:[:show, :edit, :confirm_edit, :update]
+  before_action :find_introduction, only:[:show, :edit, :confirm_edit, :update, :destroy]
 
   def index
     @q = Introduction.ransack(params[:q])
@@ -71,16 +71,16 @@ class IntroductionsController < ApplicationController
   end
 
   def destroy
-    introduction = Introduction.find(params[:id])
-    introduction.destroy
-    redirect_to introductions_url, notice: "#{introduction.name} さんの自己紹介を削除しました。"
+    @introduction.destroy
+    redirect_to introductions_url, notice: "#{@introduction.name} さんの自己紹介を削除しました。"
   end
 
+  
+  private
   def find_introduction
     @introduction = Introduction.find(params[:id])
   end
 
-  private
   def introduction_params
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
   end
