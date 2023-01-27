@@ -1,41 +1,43 @@
 h1 編集内容の確認
 
 = form_with model: @introduction, local: true do |f|
-  table
-    tr
-      th = f.label :name
-      td
-        =@introduction.name
-        = f.hidden_field :name
-    tr
-      th = f.label :age
-      td
-        =@introduction.age
-        = f.hidden_field :age
-    tr
-      th = f.label :sex
-      td
-        =@introduction.sex_i18n
-        = f.hidden_field :sex
-    tr
-      th = f.label :address
-      td
-        =@introduction.prefecture.name
-        = f.hidden_field :prefecture_id
-      td
-        =@introduction.address
-        = f.hidden_field :address
-    tr
-      th = f.label :hobby_ids
-      td
-        - @input_hobbies.each do |hobby|
-          = hobby.hobby_name
-          span 　
-          = hidden_field_tag 'hobby_ids[]', hobby.id
-    tr
-      th = f.label :content
-      td
-        =@introduction.content
-        = f.hidden_field :content
-  = f.submit '戻る', name: 'back', class: 'btn btn-secondary mr-3'
-  = f.submit '登録', class: 'btn btn-primary'
+  div.table-wrapper
+    table
+      tr
+        th = f.label :name
+        td
+          =@introduction.name
+          = f.hidden_field :name
+      tr
+        th = f.label :age
+        td
+          =@introduction.age
+          = f.hidden_field :age
+      tr
+        th = f.label :sex
+        td
+          =@introduction.sex_i18n
+          = f.hidden_field :sex
+      tr
+        th = f.label :address
+        td
+          =@introduction.prefecture.name
+          = f.hidden_field :prefecture_id
+          =@introduction.address
+          = f.hidden_field :address
+      tr
+        th = f.label :hobby_ids
+        td
+          - sorted_hobbies = @input_hobbies.sort_by {|hobby| hobby[:id]}
+          - sorted_hobbies.each do |hobby|
+            = hobby.hobby_name
+            span 　
+            = hidden_field_tag 'hobby_ids[]', hobby.id
+      tr
+        th = f.label :content
+        td
+          =@introduction.content
+          = f.hidden_field :content
+  div.btn-wrapper
+    = f.submit '戻る', name: 'back', class: 'btn btn-secondary mr-3 btn-position'
+    = f.submit '登録', class: 'btn btn-primary btn-position'

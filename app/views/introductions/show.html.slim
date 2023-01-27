@@ -2,35 +2,37 @@ h1 自己紹介詳細
 
 = link_to '一覧', introductions_path, class: 'nav-bar'
 
-table.table.table-hover 
-  tbody
-    tr
-      th= Introduction.human_attribute_name(:name)
-      td = @introduction.name
-    tr
-      th= Introduction.human_attribute_name(:age)
-      td = @introduction.age
-    tr
-      th= Introduction.human_attribute_name(:sex)
-      td = @introduction.sex_i18n
-    tr  
-      th= Introduction.human_attribute_name(:address)
-      td = @introduction.prefecture.name + @introduction.address
-    tr
-      th = Introduction.human_attribute_name(:hobby_ids)
-      td
-        - @input_hobbies.each do |hobby|
-          = hobby.hobby_name
-          span 　
-    tr 
-      th= Introduction.human_attribute_name(:content)
-      td = @introduction.content
-    tr  
-      th= Introduction.human_attribute_name(:created_at)
-      td = @introduction.created_at
-    tr
-      th= Introduction.human_attribute_name(:updated_at)
-      td = @introduction.updated_at
-
-= link_to '編集', edit_introduction_path, class: 'btn btn-primary mr-3'
-= link_to '削除', @introduction, method: :delete, data: {confirm: "#{@introduction.name}さんの自己紹介を削除します。よろしいですか？"}, class: 'btn btn-danger'
+div.table-wrapper
+  table
+    tbody
+      tr
+        th= Introduction.human_attribute_name(:name)
+        td = @introduction.name
+      tr
+        th= Introduction.human_attribute_name(:age)
+        td = @introduction.age
+      tr
+        th= Introduction.human_attribute_name(:sex)
+        td = @introduction.sex_i18n
+      tr  
+        th= Introduction.human_attribute_name(:address)
+        td = @introduction.prefecture.name + @introduction.address
+      tr
+        th = Introduction.human_attribute_name(:hobby_ids)
+        td
+          - sorted_hobbies = @input_hobbies.sort_by {|hobby| hobby[:id]}
+          - sorted_hobbies.each do |hobby|
+            = hobby.hobby_name
+            span 　
+      tr 
+        th= Introduction.human_attribute_name(:content)
+        td = simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div")
+      tr  
+        th= Introduction.human_attribute_name(:created_at)
+        td = @introduction.created_at
+      tr
+        th= Introduction.human_attribute_name(:updated_at)
+        td = @introduction.updated_at
+div.btn-wrapper
+  = link_to '編集', edit_introduction_path, class: 'btn btn-primary btn-position'
+  = link_to '削除', @introduction, method: :delete, data: {confirm: "#{@introduction.name}さんの自己紹介を削除します。よろしいですか？"}, class: 'btn btn-danger btn-position'

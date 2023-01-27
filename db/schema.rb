@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_25_033526) do
+ActiveRecord::Schema.define(version: 2023_01_26_094503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,25 +39,25 @@ ActiveRecord::Schema.define(version: 2023_01_25_033526) do
   create_table "hobbies", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "hobby_name"
+    t.string "hobby_name", null: false
   end
 
   create_table "hobby_introductions", force: :cascade do |t|
-    t.bigint "introduction_id"
+    t.bigint "introduction_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "hobby_id"
+    t.bigint "hobby_id", null: false
   end
 
   create_table "introductions", force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
-    t.string "address"
+    t.string "name", null: false
+    t.integer "age", null: false
+    t.string "address", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "sex"
-    t.integer "prefecture_id"
+    t.integer "sex", null: false
+    t.integer "prefecture_id", null: false
     t.string "image_name"
   end
 
