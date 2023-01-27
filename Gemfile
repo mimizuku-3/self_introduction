@@ -81,3 +81,6 @@ gem 'ransack'
 # Use debug function
 gem 'pry-rails'
 gem 'pry-nav'
+
+# Display the URL in the self-introduction as a link
+gem 'rails_autolink'
