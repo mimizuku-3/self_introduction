@@ -19,7 +19,7 @@ class IntroductionsController < ApplicationController
 
   def create
     @introduction = Introduction.new(introduction_params)
-    @hobby_ids=params[:hobby_ids]
+    @hobby_ids = params[:hobby_ids]
 
     if params[:back].present?
       render :new
