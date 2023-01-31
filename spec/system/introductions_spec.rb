@@ -4,7 +4,7 @@ describe '自己紹介管理機能', type: :system do
   let(:introduction_a) {
     FactoryBot.create(:introduction,
       name: '1件目の自己紹介',
-      age: 20,
+      age: 19,
       address: '港区西麻布3丁目20−6 杉友ビル2F',
       sex: 1,
       prefecture_id: 13,
@@ -16,7 +16,7 @@ describe '自己紹介管理機能', type: :system do
   let(:introduction_b) {
     FactoryBot.create(:introduction,
       name: '2件目の自己紹介',
-      age: 30,
+      age: 40,
       address: '浦安市舞浜1-1',
       sex: 0,
       prefecture_id: 12,
@@ -34,11 +34,11 @@ describe '自己紹介管理機能', type: :system do
   end
   
   shared_examples_for '自己紹介Aの「年齢」が表示されること' do
-    it { expect(page).to have_content 20 }
+    it { expect(page).to have_content 19 }
   end
   
   shared_examples_for '自己紹介Aの「年齢」（String）が表示されること' do
-    it { expect(page).to have_content "20" }
+    it { expect(page).to have_content "19" }
   end
 
   shared_examples_for '自己紹介Aの「性別」が表示されること' do
@@ -71,6 +71,16 @@ describe '自己紹介管理機能', type: :system do
 
   shared_examples_for '「削除」リンクが表示されること' do
     it { expect(page).to have_link "削除", href: introduction_path(introduction_a) }
+  end
+
+  shared_examples_for '自己紹介Bが検索結果に表示されないこと' do
+    it {
+      expect(page).to_not have_content '2件目の自己紹介'
+      expect(page).to_not have_content 40
+      expect(page).to_not have_content '千葉県浦安市舞浜1-1'
+      expect(page).to_not have_content '2023-01-01 00:00:00'
+      expect(page).to_not have_content '2023-01-02 00:00:00'
+    }
   end
   
   ################################
@@ -109,7 +119,7 @@ describe '自己紹介管理機能', type: :system do
       it '自己紹介2件分が表示されていること' do
         # 自己紹介A
         expect(page).to have_content '1件目の自己紹介'
-        expect(page).to have_content 20
+        expect(page).to have_content 19
         expect(page).to have_content '東京都港区西麻布3丁目20−6 杉友ビル2F'
         expect(page).to have_content '女性'
         expect(page).to have_content '2023-01-29 00:00:00'
@@ -117,7 +127,7 @@ describe '自己紹介管理機能', type: :system do
         
         # 自己紹介B
         expect(page).to have_content '2件目の自己紹介'
-        expect(page).to have_content 30
+        expect(page).to have_content 40
         expect(page).to have_content '千葉県浦安市舞浜1-1'
         expect(page).to have_content '男性'
         expect(page).to have_content '2023-01-01 00:00:00'
@@ -412,4 +422,43 @@ describe '自己紹介管理機能', type: :system do
     # end
   end
 
+  describe '検索機能' do
+    before do
+      introduction_a
+      introduction_b
+      visit introductions_path
+      choose '女性'
+      fill_in 'age_from', with: 18
+      fill_in 'age_end', with: 20
+      select '東京都', from: '住所（都道府県）'
+    end
+
+    context '自己紹介Aがヒットする項目を指定して検索をしたとき' do
+      before do
+        fill_in '名前', with: '1件目の自己紹介'
+        click_button '検索'
+      end
+      it_behaves_like '自己紹介Aの「名前」が表示されること'
+      it_behaves_like '自己紹介Aの「年齢」が表示されること'
+      it_behaves_like '自己紹介Aの「住所」が表示されること'
+      it_behaves_like '自己紹介Aの「登録日時」が表示されること'
+      it_behaves_like '自己紹介Aの「更新日時」が表示されること'
+      it_behaves_like '自己紹介Bが検索結果に表示されないこと'
+    end
+
+    context '自己紹介Aがヒットしない項目を指定して検索をしたとき' do
+      before do
+        fill_in '名前', with: 'hoge'
+        click_button '検索'
+      end
+      it '自己紹介Aは表示されないこと' do
+        expect(page).to_not have_content '1件目の自己紹介'
+        expect(page).to_not have_content 19
+        expect(page).to_not have_content '東京都港区西麻布3丁目20−6 杉友ビル2F'
+        expect(page).to_not have_content '2023-01-29 00:00:00'
+        expect(page).to_not have_content '2023-01-30 00:00:00'
+      end
+      it_behaves_like '自己紹介Bが検索結果に表示されないこと'
+    end
+  end
 end

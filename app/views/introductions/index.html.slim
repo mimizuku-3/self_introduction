@@ -18,9 +18,9 @@ div.search-container
     .form-group.row
       = f.label :age, "年齢", class: 'col-sm-2 col-form-label'
       .col-sm-10
-        = f.number_field :age_gteq, class: 'form'
+        = f.number_field :age_gteq, class: 'form', id: 'age_from'
         span 歳以上
-        = f.number_field :age_lteq, class: 'form'
+        = f.number_field :age_lteq, class: 'form', id: 'age_end'
         span 歳以下
     .form-group.row
       = f.label :prefecture_id_eq, '住所（都道府県）', class: 'col-sm-2 col-form-label'
