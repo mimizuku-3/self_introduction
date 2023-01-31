@@ -3,8 +3,9 @@ class Introduction < ApplicationRecord
   belongs_to :prefecture
   has_many :hobby_introductions
   has_many :hobbies, through: :hobby_introductions, dependent: :destroy
-
   accepts_nested_attributes_for :hobby_introductions, allow_destroy: true
+  
+  has_one_attached :image_name
 
   enum sex: { male: 0, female: 1}
 

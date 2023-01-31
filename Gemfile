@@ -79,6 +79,7 @@ gem 'rails-i18n'
 
 gem 'active_hash'
 
+# Use search function
 gem 'ransack'
 
 # Use debug function
@@ -87,3 +88,5 @@ gem 'pry-nav'
 
 # Display the URL in the self-introduction as a link
 gem 'rails_autolink'
+# Use Active Storage variant
+gem 'image_processing', '~> 1.2'
