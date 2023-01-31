@@ -1,8 +1,9 @@
 h1 自己紹介の編集
 
-- @introduction.errors.full_messages.each do |message| 
-  div.form-error
-    = message
+- if @introduction.errors.present?
+  ul#error_explanation
+    - @introduction.errors.full_messages.each do |message|
+      li= message
 
 = form_with model: @introduction, url: confirm_introduction_path, local: true do |f|
   div.table-wrapper
