@@ -75,18 +75,13 @@ class IntroductionsController < ApplicationController
     redirect_to introductions_url, notice: "#{@introduction.name} さんの自己紹介を削除しました。"
   end
 
-  def introduction_params
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, :image_name)
-  end
-
-  
   private
   def find_introduction
     @introduction = Introduction.find(params[:id])
   end
 
   def introduction_params
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
+    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, :image_name, hobby_ids:[])
   end
 
 end
