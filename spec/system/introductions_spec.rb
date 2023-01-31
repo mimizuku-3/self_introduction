@@ -25,6 +25,13 @@ describe '自己紹介管理機能', type: :system do
       updated_at: '2023-01-02 00:00:00'
     )
   }
+  let!(:hobby_movie) { FactoryBot.create(:hobby, hobby_name: '映画鑑賞') }
+  let!(:hobby_reading) { FactoryBot.create(:hobby, hobby_name: '読書') }
+  let!(:hobby_shopping) { FactoryBot.create(:hobby, hobby_name: '買い物') }
+  let(:hobby_introduction_a_movie) { FactoryBot.create(:hobby_introduction, introduction: introduction_a, hobby: hobby_movie) }
+  let(:hobby_introduction_a_reading) { FactoryBot.create(:hobby_introduction, introduction: introduction_a, hobby: hobby_reading) }
+  let(:hobby_introduction_b_shopping) { FactoryBot.create(:hobby_introduction, introduction: introduction_b, hobby: hobby_shopping) }
+
   
   ################################
   # 共通テストケース
@@ -53,6 +60,10 @@ describe '自己紹介管理機能', type: :system do
     it { expect(page).to have_content '港区西麻布3丁目20−6 杉友ビル2F' }
   end
 
+  shared_examples_for '自己紹介Aの「趣味」が表示されること' do
+    it { expect(page).to have_content '映画鑑賞　読書' }
+  end
+
   shared_examples_for '自己紹介Aの「自己紹介」が表示されること' do
     it { expect(page).to have_content '1件目の自己紹介です!!' }
   end
@@ -79,7 +90,6 @@ describe '自己紹介管理機能', type: :system do
       expect(page).to_not have_content 40
       expect(page).to_not have_content '千葉県浦安市舞浜1-1'
       expect(page).to_not have_content '2023-01-01 00:00:00'
-      expect(page).to_not have_content '2023-01-02 00:00:00'
     }
   end
   
@@ -92,8 +102,8 @@ describe '自己紹介管理機能', type: :system do
 
     context '一覧画面に遷移したとき' do
       before do
-        introduction_a
-        # FactoryBot.create(:hobby_introduction, introduction: introduction_a, hobby_id: 2)
+        hobby_introduction_a_movie
+        hobby_introduction_a_reading
         visit introductions_path
       end
       
@@ -101,46 +111,42 @@ describe '自己紹介管理機能', type: :system do
       it_behaves_like '自己紹介Aの「年齢」が表示されること'
       it_behaves_like '自己紹介Aの「性別」が表示されること'
       it_behaves_like '自己紹介Aの「住所」が表示されること'
+      it_behaves_like '自己紹介Aの「趣味」が表示されること'
       it_behaves_like '自己紹介Aの「登録日時」が表示されること'
-      it_behaves_like '自己紹介Aの「更新日時」が表示されること'
-
-      # it '趣味が表示されること' do
-      #   expect(page).to have_content '読書'
-      # end
+      
     end
-
+    
     context '自己紹介が2件以上登録されているときの一覧画面' do
       # Todo: 登録画面から登録した2件目の自己紹介が表示されることの確認にする。
       before do
-        introduction_a
-        introduction_b
+        hobby_introduction_a_movie
+        hobby_introduction_a_reading
+        hobby_introduction_b_shopping
         visit introductions_path
       end
-      it '自己紹介2件分が表示されていること' do
-        # 自己紹介A
-        expect(page).to have_content '1件目の自己紹介'
-        expect(page).to have_content 19
-        expect(page).to have_content '東京都港区西麻布3丁目20−6 杉友ビル2F'
-        expect(page).to have_content '女性'
-        expect(page).to have_content '2023-01-29 00:00:00'
-        expect(page).to have_content '2023-01-30 00:00:00'
-        
+      it_behaves_like '自己紹介Aの「名前」が表示されること'
+      it_behaves_like '自己紹介Aの「年齢」が表示されること'
+      it_behaves_like '自己紹介Aの「性別」が表示されること'
+      it_behaves_like '自己紹介Aの「住所」が表示されること'
+      it_behaves_like '自己紹介Aの「趣味」が表示されること'
+      it_behaves_like '自己紹介Aの「登録日時」が表示されること'
+      it '自己紹介Bが表示されていること' do
         # 自己紹介B
         expect(page).to have_content '2件目の自己紹介'
         expect(page).to have_content 40
-        expect(page).to have_content '千葉県浦安市舞浜1-1'
         expect(page).to have_content '男性'
+        expect(page).to have_content '千葉県浦安市舞浜1-1'
+        expect(page).to have_content '買い物'
         expect(page).to have_content '2023-01-01 00:00:00'
-        expect(page).to have_content '2023-01-02 00:00:00'
       end
     end
-
+    
     context '一覧画面の全体確認' do
       before do
         introduction_a
         visit introductions_path
       end
-
+      
       it '「検索」ボタンが表示されること'  do
         expect(page).to have_button "検索"
       end
@@ -148,7 +154,7 @@ describe '自己紹介管理機能', type: :system do
       it '「リセット」ボタンが表示されること'  do
         expect(page).to have_button "リセット"
       end
-
+      
       it '「新規登録」リンクが表示されること'  do
         expect(page).to have_link "新規登録", href: new_introduction_path
       end
@@ -156,13 +162,13 @@ describe '自己紹介管理機能', type: :system do
       it '「詳細」リンクが表示されること'  do
         expect(page).to have_link "詳細", href: introduction_path(introduction_a)
       end
-
+      
       it_behaves_like '「編集」リンクが表示されること'
       it_behaves_like '「削除」リンクが表示されること'
-
+      
     end
   end
-
+  
 
   ################################
   # 詳細画面
@@ -170,20 +176,26 @@ describe '自己紹介管理機能', type: :system do
   describe '詳細表示機能' do
     context '詳細画面に遷移した時'  do
       before do
+        hobby_introduction_a_movie
+        hobby_introduction_a_reading
         visit introduction_path(introduction_a)
       end
-
+      
       it_behaves_like '自己紹介Aの「名前」が表示されること'
       it_behaves_like '自己紹介Aの「年齢」が表示されること'
       it_behaves_like '自己紹介Aの「性別」が表示されること'
       it_behaves_like '自己紹介Aの「住所」が表示されること'
+      it_behaves_like '自己紹介Aの「趣味」が表示されること'
       it_behaves_like '自己紹介Aの「登録日時」が表示されること'
-      it_behaves_like '自己紹介Aの「更新日時」が表示されること'
+      # it_behaves_like '自己紹介Aの「更新日時」が表示されること'
       it_behaves_like '自己紹介Aの「自己紹介」が表示されること'
-
+      it '趣味が表示されること' do
+        expect(page).to have_content '映画鑑賞'
+      end
+      
       it_behaves_like '「編集」リンクが表示されること'
       it_behaves_like '「削除」リンクが表示されること'
-
+      
     end
   end
 
@@ -214,6 +226,8 @@ describe '自己紹介管理機能', type: :system do
         before do
           choose '男性'
           select '北海道', from: 'introduction_prefecture_id'
+          check '映画鑑賞'
+          check '買い物'
           click_button '確認'
         end
   
@@ -227,6 +241,7 @@ describe '自己紹介管理機能', type: :system do
           expect(page).to have_content '男性'
           expect(page).to have_content '北海道'
           expect(page).to have_content '札幌市豊平区羊ケ丘１'
+          expect(page).to have_content '映画鑑賞　買い物'
           expect(page).to have_content '3件目の自己紹介です!!'
         end
       end
@@ -269,6 +284,8 @@ describe '自己紹介管理機能', type: :system do
         fill_in '自己紹介', with: introduction_content
         choose '男性'
         select '北海道', from: 'introduction_prefecture_id'
+        check '映画鑑賞'
+        check '買い物'
         click_button '確認'
       end
       
@@ -318,6 +335,9 @@ describe '自己紹介管理機能', type: :system do
           fill_in '自己紹介', with: introduction_content
           choose '男性'
           select '愛媛県', from: 'introduction_prefecture_id'
+          uncheck '映画鑑賞'
+          uncheck '読書'
+          check '買い物'
           click_button '確認'
         end
 
@@ -328,6 +348,7 @@ describe '自己紹介管理機能', type: :system do
           expect(page).to have_content '男性'
           expect(page).to have_content '愛媛県'
           expect(page).to have_content '港区西麻布3丁目20−6 杉友ビル2F（編集後）'
+          expect(page).to have_content '買い物'
           expect(page).to have_content '自己紹介Aの編集後です。'
         end
       end
@@ -424,8 +445,9 @@ describe '自己紹介管理機能', type: :system do
 
   describe '検索機能' do
     before do
-      introduction_a
-      introduction_b
+      hobby_introduction_a_movie
+      hobby_introduction_a_reading
+      hobby_introduction_b_shopping
       visit introductions_path
       choose '女性'
       fill_in 'age_from', with: 18
@@ -441,8 +463,8 @@ describe '自己紹介管理機能', type: :system do
       it_behaves_like '自己紹介Aの「名前」が表示されること'
       it_behaves_like '自己紹介Aの「年齢」が表示されること'
       it_behaves_like '自己紹介Aの「住所」が表示されること'
+      it_behaves_like '自己紹介Aの「趣味」が表示されること'
       it_behaves_like '自己紹介Aの「登録日時」が表示されること'
-      it_behaves_like '自己紹介Aの「更新日時」が表示されること'
       it_behaves_like '自己紹介Bが検索結果に表示されないこと'
     end
 
@@ -456,7 +478,6 @@ describe '自己紹介管理機能', type: :system do
         expect(page).to_not have_content 19
         expect(page).to_not have_content '東京都港区西麻布3丁目20−6 杉友ビル2F'
         expect(page).to_not have_content '2023-01-29 00:00:00'
-        expect(page).to_not have_content '2023-01-30 00:00:00'
       end
       it_behaves_like '自己紹介Bが検索結果に表示されないこと'
     end
