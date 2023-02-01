@@ -17,7 +17,7 @@ ja:
         sex: 性別
         address: 住所
         content: 自己紹介
-        image_name: 写真
+        image: 写真
         created_at: 登録日時
         updated_at: 更新日時
         hobby_ids: 趣味
