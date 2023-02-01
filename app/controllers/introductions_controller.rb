@@ -81,7 +81,7 @@ class IntroductionsController < ApplicationController
   end
 
   def introduction_params
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, :image_name, hobby_ids:[])
+    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
   end
 
 end
