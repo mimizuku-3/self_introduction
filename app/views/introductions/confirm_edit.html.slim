@@ -39,13 +39,13 @@ h1 編集内容の確認
           = auto_link(simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div"))
           = f.hidden_field :content
       / / 確認表示用
-      / tr
-      /   th= f.label :blob_id
-      /   td
-      /     - if @introduction.image.attached?
-      /       / = image_tag @introduction.image.variant(resize: "500x300>").processed
-      /       = image_tag @introduction.image
-      /       = f.hidden_field :blob_id, value: f.object.image.signed_id
+      tr
+        th= f.label :blob_id
+        td
+          - if @introduction.image.attached?
+            / = image_tag @introduction.image.variant(resize: "500x300>").processed
+            = image_tag @introduction.image
+            = f.hidden_field :blob_id, value: f.object.image.signed_id
 
       / 確認表示用２
       / tr

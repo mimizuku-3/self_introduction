@@ -52,8 +52,8 @@ h1 自己紹介の編集
         th = f.label :image
         td
           - if @introduction.image.attached?
-            / = image_tag @introduction.image.variant(resize: "500x300>").processed
-            = image_tag @introduction.image
+            = image_tag @introduction.image.variant(resize: "500x300>").processed
+            / = image_tag @introduction.image
           .form-group
             = f.file_field :image, id: 'introduction_image', class: 'form-control'
   div.btn-wrapper

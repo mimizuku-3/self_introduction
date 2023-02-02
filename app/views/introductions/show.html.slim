@@ -31,7 +31,6 @@ div.table-wrapper
         th= Introduction.human_attribute_name(:image)
         td
           - if @introduction.image.attached?
-            / = image_tag @introduction.image_name.variant(resize: "500x300>").processed
             = image_tag @introduction.image.variant(resize: "500x300>").processed
       tr  
         th= Introduction.human_attribute_name(:created_at)

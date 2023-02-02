@@ -56,33 +56,41 @@ class IntroductionsController < ApplicationController
   def confirm_edit
     @introduction.attributes = introduction_params
     @input_hobbies = @introduction.hobbies
-    # @blob = ActiveStorage::Blob.last
+    @blob = ActiveStorage::Blob.last
     # binding.pry
-    # logger.debug("blobのsigned_id：#{@blob.signed_id}---------------------------------------------")
+    logger.debug("blobのsigned_id：#{@blob.signed_id}---------------------------------------------")
+    path = params[:introduction][:image].original_filename
+    @blob = ActiveStorage::Blob.create_and_upload!(io: params[:introduction][:image].tempfile, filename: path)
+    session[:signed_id] = @blob.signed_id
     # @introduction.image.blob.save
-    # logger.debug("選択した画像のsigned_id：#{@introduction.image.signed_id}---------------------------------------------")
+    
+    logger.debug("選択した画像のsigned_id：#{@introduction.image.signed_id}---------------------------------------------")
     render :edit unless @introduction.valid?
   end
 
   def update
     logger.debug("signed_id：#{@introduction.image.signed_id}---------------------------------------------")
     logger.debug("signed_id：#{params[:introduction][:blob_id]}---------------------------------------------")
-    # logger.debug("paramsのsigned_id：#{params[:introduction][:blob_id]}---------------------------------------------")
-    binding.pry
-    # @introduction.image.attach(params[:introduction][:blob_id])
+    logger.debug("paramsのsigned_id：#{params[:introduction][:blob_id]}---------------------------------------------")
+    # binding.pry
+    logger.debug("signed_id2：#{session[:signed_id]}---------------------------------------------")
+    
+    
+    # @introduction.attributes = introduction_params
     # logger.debug("signed_id2：#{@introduction.image.signed_id}---------------------------------------------")
     
+    # path = "public/introductions_images/fテスト１.png"
+    # blob = ActiveStorage::Blob.create_and_upload!(io: File.new(path),  filename: File.basename(path))
+    # @introduction.image.attach(blob.signed_id)
     
-    @introduction.attributes = introduction_params
-    # logger.debug("signed_id2：#{@introduction.image.signed_id}---------------------------------------------")
-    
-    binding.pry
+    # binding.pry
     @hobby_ids=params[:hobby_ids]
     if params[:back].present?
       render :edit
       return
     end
-    if @introduction.update(introduction_params)
+    if @introduction.save
+      @introduction.image.attach(session[:signed_id])
       redirect_to complete_introductions_path
     else
       render :edit
