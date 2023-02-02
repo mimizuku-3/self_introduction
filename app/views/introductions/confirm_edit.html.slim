@@ -39,38 +39,8 @@ h1 編集内容の確認
         td
           = auto_link(simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div"))
           = f.hidden_field :content
-      / / 確認表示用
-      tr
-        th= f.label :blob_id
-        td
-          - if @introduction.image.attached?
-            / = image_tag @introduction.image.variant(resize: "500x300>").processed
-            = image_tag @introduction.image
-            = f.hidden_field :blob_id, value: f.object.image.signed_id
-
-      / 確認表示用２
-      / tr
-      /   th = f.label :image
-      /   td
-      /     = f.hidden_field :image
       
-      / tr
-      /   th = f.label :image
-      /   td
-      /     - if @introduction.image.attached?
-      /       / = image_tag @introduction.image.variant(resize: "500x300>").processed
-      /       = image_tag @introduction.image
-      /       = f.hidden_field :image
-
-      // 入力フォーム
-      / tr
-      /   th = f.label :image
-      /   td
-      /     - if @introduction.image.attached?
-      /       / = image_tag @introduction.image.variant(resize: "500x300>").processed
-      /       = image_tag @introduction.image
-      /     .form-group
-      /       = f.file_field :image, id: 'introduction_image', class: 'form-control'
+      = f.hidden_field :blob_id, value: f.object.image.signed_id
   div.btn-wrapper
     = f.submit '戻る', name: 'back', class: 'btn btn-secondary mr-3 btn-position'
     = f.submit '登録', class: 'btn btn-primary btn-position'
