@@ -47,6 +47,11 @@ h1 自己紹介登録
         th = f.label :content
         td
             = f.text_area :content, class: 'content form', id: 'introduction_content'
+      tr
+        th = f.label :image
+        td
+          .form-group
+            = f.file_field :image, id: 'introduction_image', class: 'form-control'
   div.btn-wrapper
     = f.submit '確認', class: 'btn btn-primary btn-position'
     = f.submit 'リセット', type: :reset, class: 'btn btn-outline-primary btn-position'

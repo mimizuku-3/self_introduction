@@ -1,6 +1,6 @@
 h1 編集内容の確認
 
-= form_with model: @introduction, local: true do |f|
+= form_with model: @introduction, local: true, multipart: true do |f|
   div.table-wrapper
     table
       tr
@@ -39,6 +39,8 @@ h1 編集内容の確認
         td
           = auto_link(simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div"))
           = f.hidden_field :content
+      
+      = f.hidden_field :blob_id, value: f.object.image.signed_id
   div.btn-wrapper
     = f.submit '戻る', name: 'back', class: 'btn btn-secondary mr-3 btn-position'
     = f.submit '登録', class: 'btn btn-primary btn-position'

@@ -5,7 +5,7 @@ h1 自己紹介の編集
     - @introduction.errors.full_messages.each do |message|
       li= message
 
-= form_with model: @introduction, url: confirm_introduction_path, local: true do |f|
+= form_with model: @introduction, url: confirm_introduction_path, local: true, multipart: true do |f|
   div.table-wrapper
     table
       tr
@@ -48,5 +48,12 @@ h1 自己紹介の編集
         td
           .form-group
             = f.text_area :content, class: 'content form', id: 'introduction_content'
+      tr
+        th = f.label :image
+        td
+          - if @introduction.image.attached?
+            = image_tag @introduction.image.variant(resize: "500x300>").processed
+          .form-group
+            = f.file_field :image, id: 'introduction_image', class: 'form-control'
   div.btn-wrapper
     = f.submit '確認', class: 'btn btn-primary btn-position'
