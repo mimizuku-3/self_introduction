@@ -28,11 +28,12 @@ h1 編集内容の確認
       tr
         th = f.label :hobby_ids
         td
-          - sorted_hobbies = @input_hobbies.sort_by {|hobby| hobby[:id]}
-          - sorted_hobbies.each do |hobby|
-            = hobby.hobby_name
-            span 　
-            = hidden_field_tag 'hobby_ids[]', hobby.id
+          = f.hidden_field :hobby_ids, multiple: true, value: nil
+          - @input_hobbies.each do |hobby_id|
+            = f.hidden_field :hobby_ids, multiple: true, value: hobby_id
+            - @hobby = Hobby.find(hobby_id)
+            = @hobby.hobby_name if @hobby.present?
+            span　
       tr
         th = f.label :content
         td
