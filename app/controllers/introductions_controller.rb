@@ -13,15 +13,20 @@ class IntroductionsController < ApplicationController
 
   def confirm_new
     @introduction = Introduction.new(introduction_params)
-    binding.pry
     @input_hobbies = @introduction.hobbies
+    if params[:introduction][:image].present?
+      path = params[:introduction][:image].original_filename
+      @blob = ActiveStorage::Blob.create_and_upload!(io: params[:introduction][:image].tempfile, filename: path)
+      session[:signed_id] = @blob.signed_id
+      # @introduction.image.blob.save
+      
+      logger.debug("選択した画像のsigned_id：#{@introduction.image.signed_id}---------------------------------------------")
+    end
     render :new unless @introduction.valid?
   end
 
   def create
-    binding.pry
     @introduction = Introduction.new(introduction_params)
-    binding.pry
     @hobby_ids = params[:hobby_ids]
 
     if params[:back].present?
@@ -36,6 +41,8 @@ class IntroductionsController < ApplicationController
           @introduction.hobbies << hobby
         end
       end
+      @introduction.image.attach(session[:signed_id]) if session[:signed_id].present?
+      session[:signed_id] = nil
       redirect_to complete_introductions_path
     else
       render :new
@@ -47,6 +54,7 @@ class IntroductionsController < ApplicationController
   end
 
   def show
+    binding.pry
     @input_hobbies = @introduction.hobbies
   end
 
@@ -55,16 +63,17 @@ class IntroductionsController < ApplicationController
 
   def confirm_edit
     @introduction.attributes = introduction_params
+    binding.pry
+    if params[:introduction][:image].present?
+      path = params[:introduction][:image].original_filename
+      @blob = ActiveStorage::Blob.create_and_upload!(io: params[:introduction][:image].tempfile, filename: path)
+      session[:signed_id] = @blob.signed_id
+      # @introduction.image.blob.save
+      
+      logger.debug("選択した画像のsigned_id：#{@introduction.image.signed_id}---------------------------------------------")
+    end
+    binding.pry
     @input_hobbies = @introduction.hobbies
-    @blob = ActiveStorage::Blob.last
-    # binding.pry
-    logger.debug("blobのsigned_id：#{@blob.signed_id}---------------------------------------------")
-    path = params[:introduction][:image].original_filename
-    @blob = ActiveStorage::Blob.create_and_upload!(io: params[:introduction][:image].tempfile, filename: path)
-    session[:signed_id] = @blob.signed_id
-    # @introduction.image.blob.save
-    
-    logger.debug("選択した画像のsigned_id：#{@introduction.image.signed_id}---------------------------------------------")
     render :edit unless @introduction.valid?
   end
 
@@ -76,7 +85,7 @@ class IntroductionsController < ApplicationController
     logger.debug("signed_id2：#{session[:signed_id]}---------------------------------------------")
     
     
-    # @introduction.attributes = introduction_params
+    @introduction.attributes = introduction_params_edit
     # logger.debug("signed_id2：#{@introduction.image.signed_id}---------------------------------------------")
     
     # path = "public/introductions_images/fテスト１.png"
@@ -89,8 +98,11 @@ class IntroductionsController < ApplicationController
       render :edit
       return
     end
-    if @introduction.save
-      @introduction.image.attach(session[:signed_id])
+    if @introduction.update(introduction_params_edit)
+      # binding.pry
+      # introductionとimageをActiveStorage::Attachmentに紐づけ
+      @introduction.image.attach(session[:signed_id]) if session[:signed_id].present?
+      session[:signed_id] = nil
       redirect_to complete_introductions_path
     else
       render :edit
@@ -112,13 +124,7 @@ class IntroductionsController < ApplicationController
   end
 
   def introduction_params_edit
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, :image, hobby_ids:[])
-
-
-    logger.debug("画像のsigned_id：#{params[:introduction][:image]}")
-    binding.pry
-    @introduction.image.attach(params[:introduction][:image])
-    binding.pry
+    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
   end
 
 end
