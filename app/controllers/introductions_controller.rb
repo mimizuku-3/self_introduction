@@ -51,14 +51,14 @@ class IntroductionsController < ApplicationController
   end
 
   def confirm_edit
-    @introduction.attributes = introduction_params
-    @input_hobbies = @introduction.hobbies
+    @introduction.attributes = introduction_params_for_confirm
+    @input_hobbies = params[:introduction][:hobby_ids]
+    @input_hobbies.shift
     render :edit unless @introduction.valid?
   end
 
   def update
     @introduction.attributes = introduction_params
-    @hobby_ids=params[:hobby_ids]
     if params[:back].present?
       render :edit
       return
@@ -85,4 +85,7 @@ class IntroductionsController < ApplicationController
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
   end
 
+  def introduction_params_for_confirm
+    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content)
+  end
 end
