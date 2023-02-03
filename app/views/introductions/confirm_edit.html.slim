@@ -1,40 +1,46 @@
 h1 編集内容の確認
 
-= form_with model: @introduction, local: true do |f|
-  table
-    tr
-      th = f.label :name
-      td
-        =@introduction.name
-        = f.hidden_field :name
-    tr
-      th = f.label :age
-      td
-        =@introduction.age
-        = f.hidden_field :age
-    tr
-      th = f.label :sex
-      td
-        =@introduction.sex_i18n
-        = f.hidden_field :sex
-    tr
-      th = f.label :address
-      td
-        =@introduction.prefecture.name
-        = f.hidden_field :prefecture_id
-      td
-        =@introduction.address
-        = f.hidden_field :address
-    / tr
-    /   th
-    /     = f.label :hobby
-    /   td
-    /     .form-group
-    /       = f.text_field :hobby, id: 'introduction_hobby'
-    tr
-      th = f.label :content
-      td
-        =@introduction.content
-        = f.hidden_field :content
-  = f.submit '戻る', name: 'back', class: 'btn btn-secondary mr-3'
-  = f.submit '登録', class: 'btn btn-primary'
+= form_with model: @introduction, local: true, multipart: true do |f|
+  div.table-wrapper
+    table
+      tr
+        th = f.label :name
+        td
+          =@introduction.name
+          = f.hidden_field :name
+      tr
+        th = f.label :age
+        td
+          =@introduction.age
+          = f.hidden_field :age
+      tr
+        th = f.label :sex
+        td
+          =@introduction.sex_i18n
+          = f.hidden_field :sex
+      tr
+        th = f.label :address
+        td
+          =@introduction.prefecture.name
+          = f.hidden_field :prefecture_id
+          =@introduction.address
+          = f.hidden_field :address
+      tr
+        th = f.label :hobby_ids
+        td
+          = f.hidden_field :hobby_ids, multiple: true, value: nil
+          - @input_hobbies.each do |hobby_id|
+            = f.hidden_field :hobby_ids, multiple: true, value: hobby_id
+            - @hobby = Hobby.find(hobby_id)
+            = @hobby.hobby_name if @hobby.present?
+            span　
+      tr
+        th = f.label :content
+        td
+          = auto_link(simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div"))
+          = f.hidden_field :content
+      
+      = f.hidden_field :blob_id, value: f.object.image.signed_id
+  div.btn-wrapper
+    = f.submit '戻る', name: 'back', class: 'btn btn-secondary mr-3 btn-position'
+    = f.submit '登録', class: 'btn btn-primary btn-position'
