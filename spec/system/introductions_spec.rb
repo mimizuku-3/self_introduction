@@ -4,6 +4,7 @@ describe '自己紹介管理機能', type: :system do
   let(:introduction_a) {
     FactoryBot.create(:introduction,
       name: '1件目の自己紹介',
+      furigana: 'イッケンメノジコショウカイ',
       age: 19,
       address: '港区西麻布3丁目20−6 杉友ビル2F',
       sex: 1,
@@ -16,6 +17,7 @@ describe '自己紹介管理機能', type: :system do
   let(:introduction_b) {
     FactoryBot.create(:introduction,
       name: '2件目の自己紹介',
+      furigana: 'ニケンメノジコショウカイ',
       age: 40,
       address: '浦安市舞浜1-1',
       sex: 0,
@@ -40,6 +42,10 @@ describe '自己紹介管理機能', type: :system do
     it { expect(page).to have_content '1件目の自己紹介' }
   end
   
+  shared_examples_for '自己紹介Aの「フリガナ」が表示されること' do
+    it { expect(page).to have_content 'イッケンメノジコショウカイ' }
+  end
+
   shared_examples_for '自己紹介Aの「年齢」が表示されること' do
     it { expect(page).to have_content 19 }
   end
@@ -84,6 +90,14 @@ describe '自己紹介管理機能', type: :system do
     it { expect(page).to have_link "削除", href: introduction_path(introduction_a) }
   end
 
+  shared_examples_for '「フリガナ」のバリデーションメッセージが表示されること' do
+    it {
+      within '#error_explanation' do
+        expect(page).to have_content 'フリガナは全角カタカナで入力して下さい。'
+      end
+    }
+  end
+
   shared_examples_for '自己紹介Bが検索結果に表示されないこと' do
     it {
       expect(page).to_not have_content '2件目の自己紹介'
@@ -92,7 +106,7 @@ describe '自己紹介管理機能', type: :system do
       expect(page).to_not have_content '2023-01-01 00:00:00'
     }
   end
-  
+
   ################################
   # 一覧画面
   ################################
@@ -108,6 +122,7 @@ describe '自己紹介管理機能', type: :system do
       end
       
       it_behaves_like '自己紹介Aの「名前」が表示されること'
+      it_behaves_like '自己紹介Aの「フリガナ」が表示されること'
       it_behaves_like '自己紹介Aの「年齢」が表示されること'
       it_behaves_like '自己紹介Aの「性別」が表示されること'
       it_behaves_like '自己紹介Aの「住所」が表示されること'
@@ -125,6 +140,7 @@ describe '自己紹介管理機能', type: :system do
         visit introductions_path
       end
       it_behaves_like '自己紹介Aの「名前」が表示されること'
+      it_behaves_like '自己紹介Aの「フリガナ」が表示されること'
       it_behaves_like '自己紹介Aの「年齢」が表示されること'
       it_behaves_like '自己紹介Aの「性別」が表示されること'
       it_behaves_like '自己紹介Aの「住所」が表示されること'
@@ -133,6 +149,7 @@ describe '自己紹介管理機能', type: :system do
       it '自己紹介Bが表示されていること' do
         # 自己紹介B
         expect(page).to have_content '2件目の自己紹介'
+        expect(page).to have_content 'ニケンメノジコショウカイ'
         expect(page).to have_content 40
         expect(page).to have_content '男性'
         expect(page).to have_content '千葉県浦安市舞浜1-1'
@@ -150,17 +167,9 @@ describe '自己紹介管理機能', type: :system do
       it '「検索」ボタンが表示されること'  do
         expect(page).to have_button "検索"
       end
-
-      it '「リセット」ボタンが表示されること'  do
-        expect(page).to have_button "リセット"
-      end
       
       it '「新規登録」リンクが表示されること'  do
         expect(page).to have_link "新規登録", href: new_introduction_path
-      end
-
-      it '「詳細」リンクが表示されること'  do
-        expect(page).to have_link "詳細", href: introduction_path(introduction_a)
       end
       
       it_behaves_like '「編集」リンクが表示されること'
@@ -182,12 +191,12 @@ describe '自己紹介管理機能', type: :system do
       end
       
       it_behaves_like '自己紹介Aの「名前」が表示されること'
+      it_behaves_like '自己紹介Aの「フリガナ」が表示されること'
       it_behaves_like '自己紹介Aの「年齢」が表示されること'
       it_behaves_like '自己紹介Aの「性別」が表示されること'
       it_behaves_like '自己紹介Aの「住所」が表示されること'
       it_behaves_like '自己紹介Aの「趣味」が表示されること'
       it_behaves_like '自己紹介Aの「登録日時」が表示されること'
-      # it_behaves_like '自己紹介Aの「更新日時」が表示されること'
       it_behaves_like '自己紹介Aの「自己紹介」が表示されること'
       it '趣味が表示されること' do
         expect(page).to have_content '映画鑑賞'
@@ -204,6 +213,7 @@ describe '自己紹介管理機能', type: :system do
   ################################
   describe '新規登録機能' do
     let(:introduction_name) {'3件目の自己紹介'}
+    let(:introduction_furigana) {'サンケンメノジコショウカイ'}
     let(:introduction_age) {40}
     let(:introduction_sex) {0}
     let(:introduction_prefecture_id) {1}
@@ -217,6 +227,7 @@ describe '自己紹介管理機能', type: :system do
       before do
         visit new_introduction_path
         fill_in '名前', with: introduction_name
+        fill_in 'フリガナ', with: introduction_furigana
         fill_in '年齢', with: introduction_age
         fill_in '住所', with: introduction_address
         fill_in '自己紹介', with: introduction_content
@@ -237,6 +248,7 @@ describe '自己紹介管理機能', type: :system do
         # it_behaves_like '新規登録（確認）画面に入力した値が表示されること'
         it '入力した値が表示されること' do
           expect(page).to have_content '3件目の自己紹介'
+          expect(page).to have_content 'サンケンメノジコショウカイ'
           expect(page).to have_content 40
           expect(page).to have_content '男性'
           expect(page).to have_content '北海道'
@@ -248,9 +260,10 @@ describe '自己紹介管理機能', type: :system do
   
       context '必須項目を入力しなかったとき' do
         let(:introduction_name) {''}
+        let(:introduction_furigana) {''}
         let(:introduction_age) {''}
         let(:introduction_address) {''}
-  
+
         before do
           click_button '確認'
         end
@@ -258,12 +271,29 @@ describe '自己紹介管理機能', type: :system do
         it 'バリデーションエラーとなる' do
           within '#error_explanation' do
             expect(page).to have_content '名前を入力してください'
+            expect(page).to have_content 'フリガナを入力してください'
             expect(page).to have_content '年齢を入力してください'
             expect(page).to have_content '性別を入力してください'
             expect(page).to have_content '住所を入力してください'
             expect(page).to have_content 'Prefectureを入力してください'
           end
         end
+      end
+
+      context 'フリガナに漢字を入力したとき' do
+        let(:introduction_furigana) {'1件目の自己紹介'}
+        before do
+          click_button '確認'
+        end
+        it_behaves_like '「フリガナ」のバリデーションメッセージが表示されること'
+      end
+
+      context 'フリガナに半角カタカナを入力したとき' do
+        let(:introduction_furigana) {'ｲｯｹﾝﾒﾉｼﾞｺｼｮｳｶｲ'}
+        before do
+          click_button '確認'
+        end
+        it_behaves_like '「フリガナ」のバリデーションメッセージが表示されること'
       end
   
       context '「リセット」ボタンを押下したとき' do
@@ -279,6 +309,7 @@ describe '自己紹介管理機能', type: :system do
       before do
         visit new_introduction_path
         fill_in '名前', with: introduction_name
+        fill_in 'フリガナ', with: introduction_furigana
         fill_in '年齢', with: introduction_age
         fill_in '住所', with: introduction_address
         fill_in '自己紹介', with: introduction_content
@@ -324,12 +355,14 @@ describe '自己紹介管理機能', type: :system do
 
       context '全項目を入力したとき' do
         let(:introduction_name) {'1件目の自己紹介の編集後'}
+        let(:introduction_furigana) {'イッケンメノジコショウカイノヘンシュウゴ'}
         let(:introduction_age) {21}
         let(:introduction_address) {'港区西麻布3丁目20−6 杉友ビル2F（編集後）'}
         let(:introduction_content) {'自己紹介Aの編集後です。'}
         
         before do
           fill_in '名前', with: introduction_name
+          fill_in 'フリガナ', with: introduction_furigana
           fill_in '年齢', with: introduction_age
           fill_in '住所', with: introduction_address
           fill_in '自己紹介', with: introduction_content
@@ -344,6 +377,7 @@ describe '自己紹介管理機能', type: :system do
         it '編集（確認）画面に遷移し、入力した値が表示されること' do
           expect(current_path).to eq confirm_introduction_path(introduction_a)
           expect(page).to have_content '1件目の自己紹介の編集後'
+          expect(page).to have_content 'イッケンメノジコショウカイノヘンシュウゴ'
           expect(page).to have_content 21
           expect(page).to have_content '男性'
           expect(page).to have_content '愛媛県'
@@ -355,10 +389,12 @@ describe '自己紹介管理機能', type: :system do
 
       context '必須項目を入力しなかったとき' do
         let(:introduction_name) {''}
+        let(:introduction_furigana) {''}
         let(:introduction_age) {''}
         let(:introduction_address) {''}
         before do
           fill_in '名前', with: introduction_name
+          fill_in 'フリガナ', with: introduction_furigana
           fill_in '年齢', with: introduction_age
           fill_in '住所', with: introduction_address
           select '---', from: 'introduction_prefecture_id'
@@ -367,6 +403,7 @@ describe '自己紹介管理機能', type: :system do
         it 'バリデーションエラーとなる' do
           within '#error_explanation' do
             expect(page).to have_content '名前を入力してください'
+            expect(page).to have_content 'フリガナを入力してください'
             expect(page).to have_content '年齢を入力してください'
             expect(page).to have_content '住所を入力してください'
             expect(page).to have_content 'Prefectureを入力してください'
@@ -461,6 +498,7 @@ describe '自己紹介管理機能', type: :system do
         click_button '検索'
       end
       it_behaves_like '自己紹介Aの「名前」が表示されること'
+      it_behaves_like '自己紹介Aの「フリガナ」が表示されること'
       it_behaves_like '自己紹介Aの「年齢」が表示されること'
       it_behaves_like '自己紹介Aの「住所」が表示されること'
       it_behaves_like '自己紹介Aの「趣味」が表示されること'
@@ -475,6 +513,7 @@ describe '自己紹介管理機能', type: :system do
       end
       it '自己紹介Aは表示されないこと' do
         expect(page).to_not have_content '1件目の自己紹介'
+        expect(page).to_not have_content 'イッケンメノジコショウカイ'
         expect(page).to_not have_content 19
         expect(page).to_not have_content '東京都港区西麻布3丁目20−6 杉友ビル2F'
         expect(page).to_not have_content '2023-01-29 00:00:00'

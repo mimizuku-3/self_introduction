@@ -9,6 +9,11 @@ h1 編集内容の確認
           =@introduction.name
           = f.hidden_field :name
       tr
+        th = f.label :furigana
+        td
+          =@introduction.furigana
+          = f.hidden_field :furigana
+      tr
         th = f.label :age
         td
           =@introduction.age

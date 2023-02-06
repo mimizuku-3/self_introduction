@@ -7,6 +7,10 @@ div.search-container
       .col-sm-10
         = f.search_field :name_cont, class: 'form'
     .form-group.row
+      = f.label :furigana_cont, "フリガナ", class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        = f.search_field :furigana_cont, class: 'form'
+    .form-group.row
       = f.label :sex_eq, "性別", class: 'col-sm-2 col-form-label'
       .col-sm-10
         = f.radio_button :sex_eq, '', {:checked => true, class: 'radio', id: 'q_sex'}
@@ -59,6 +63,7 @@ table.table.table-hover
       - @introductions.each do |introduction|
         tr
           td = link_to introduction.name, introduction
+          td = introduction.furigana
           td = introduction.age
           td = introduction.sex_i18n
           td = introduction.prefecture.name + introduction.address

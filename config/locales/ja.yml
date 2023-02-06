@@ -13,6 +13,7 @@ ja:
       introduction:
         id: ID
         name: 名前
+        furigana: フリガナ
         age: 年齢
         sex: 性別
         address: 住所

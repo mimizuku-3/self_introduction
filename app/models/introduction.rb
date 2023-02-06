@@ -10,6 +10,7 @@ class Introduction < ApplicationRecord
   enum sex: { male: 0, female: 1}
 
   validates :name, presence: true
+  validates :furigana, presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: 'は全角カタカナで入力して下さい。'}
   validates :age, presence: true
   validates :sex, presence: true
   validates :address, presence: true

@@ -14,6 +14,11 @@ h1 自己紹介の編集
           .form-group
             = f.text_field :name, class: 'form', id: 'introduction_name'
       tr
+        th = f.label :furigana
+        td
+          .form-group
+            = f.text_field :furigana, class: 'form', id: 'introduction_furigana'
+      tr
         th = f.label :age
         td
           .form-group

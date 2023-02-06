@@ -9,6 +9,9 @@ div.table-wrapper
         th= Introduction.human_attribute_name(:name)
         td = @introduction.name
       tr
+        th= Introduction.human_attribute_name(:furigana)
+        td = @introduction.furigana
+      tr
         th= Introduction.human_attribute_name(:age)
         td = @introduction.age
       tr

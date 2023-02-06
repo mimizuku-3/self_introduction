@@ -98,14 +98,14 @@ class IntroductionsController < ApplicationController
   end
 
   def introduction_params
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, :image, hobby_ids:[])
+    params.require(:introduction).permit(:name, :furigana, :age, :sex, :prefecture_id, :address, :content, :image, hobby_ids:[])
   end
 
   def introduction_params_edit
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
+    params.require(:introduction).permit(:name, :furigana, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
   end
 
   def introduction_params_for_edit_confirm
-    params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :image, :content)
+    params.require(:introduction).permit(:name, :furigana, :age, :sex, :prefecture_id, :address, :image, :content)
   end
 end
