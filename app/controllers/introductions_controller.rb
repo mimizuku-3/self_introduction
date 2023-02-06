@@ -12,7 +12,7 @@ class IntroductionsController < ApplicationController
   end
 
   def confirm_new
-    @introduction = Introduction.new(introduction_params)
+    @introduction = Introduction.new(introduction_params_edit)
     @input_hobbies = @introduction.hobbies
     if params[:introduction][:image].present?
       path = params[:introduction][:image].original_filename
@@ -23,9 +23,7 @@ class IntroductionsController < ApplicationController
   end
 
   def create
-    @introduction = Introduction.new(introduction_params)
-    @hobby_ids = params[:hobby_ids]
-
+    @introduction = Introduction.new(introduction_params_edit)
     if params[:back].present?
       render :new
       return
@@ -58,8 +56,7 @@ class IntroductionsController < ApplicationController
   end
 
   def confirm_edit
-    @introduction.attributes = introduction_params_for_confirm
-    
+    @introduction.attributes = introduction_params_for_edit_confirm
     @input_hobbies = params[:introduction][:hobby_ids]
     @input_hobbies.shift
 
@@ -108,7 +105,7 @@ class IntroductionsController < ApplicationController
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :content, hobby_ids:[])
   end
 
-  def introduction_params_for_confirm
+  def introduction_params_for_edit_confirm
     params.require(:introduction).permit(:name, :age, :sex, :prefecture_id, :address, :image, :content)
   end
 end
