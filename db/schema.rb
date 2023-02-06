@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_06_043053) do
+ActiveRecord::Schema.define(version: 2023_02_06_064234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(version: 2023_02_06_043053) do
   end
 
   create_table "basic_work_experiences", force: :cascade do |t|
-    t.bigint "introduction_id", null: false
     t.string "affiliation"
     t.string "nearest_station"
     t.date "date_work_can_start"
@@ -56,6 +55,8 @@ ActiveRecord::Schema.define(version: 2023_02_06_043053) do
     t.text "self_promotion"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "introduction_id", null: false
+    t.index ["introduction_id"], name: "index_basic_work_experiences_on_introduction_id", unique: true
   end
 
   create_table "hobbies", force: :cascade do |t|

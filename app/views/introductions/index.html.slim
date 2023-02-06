@@ -76,3 +76,4 @@ table.table.table-hover
           td = introduction.updated_at
           td = link_to '編集', edit_introduction_path(introduction), class: 'btn btn-primary mr-3'
           td = link_to '削除', introduction, method: :delete, data: {confirm: "#{introduction.name}さんの自己紹介を削除します。よろしいですか？"}, class: 'btn btn-danger'
+          td = link_to '職務経歴書の確認・変更', basic_work_experience_path(introduction), class: 'btn btn-primary mr-3'

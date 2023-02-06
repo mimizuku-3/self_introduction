@@ -1,7 +1,6 @@
 class CreateBasicWorkExperiences < ActiveRecord::Migration[6.1]
   def change
     create_table :basic_work_experiences do |t|
-      t.bigint :introduction_id, null: false
       t.string :affiliation
       t.string :nearest_station
       t.date :date_work_can_start
