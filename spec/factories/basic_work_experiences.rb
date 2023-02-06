@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :basic_work_experience do
-    introduction_id { "" }
+    introduction
     affiliation { "MyString" }
     nearest_station { "MyString" }
     date_work_can_start { "2023-02-06" }

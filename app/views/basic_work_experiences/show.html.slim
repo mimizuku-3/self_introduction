@@ -17,7 +17,7 @@ div.table-wrapper
         th = BasicWorkExperience.human_attribute_name(:nearest_station)
         td = @basic_work_experience.nearest_station
         th = Introduction.human_attribute_name(:age)
-        td = 
+        td = "#{@introduction.age}歳"
       tr
         th = BasicWorkExperience.human_attribute_name(:date_work_can_start)
         td = @basic_work_experience.date_work_can_start
@@ -45,4 +45,4 @@ div.table-wrapper
     tbody 
       tr 
         th = BasicWorkExperience.human_attribute_name(:self_promotion)
-        td = @basic_work_experience.self_promotion
+        td = simple_format(h(@basic_work_experience.self_promotion), {}, sanitize: false, wrapper_tag: "div")
