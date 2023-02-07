@@ -19,19 +19,19 @@ div.table-wrapper
         th = Introduction.human_attribute_name(:age)
         td = "#{@introduction.age}歳"
       tr
-        th = BasicWorkExperience.human_attribute_name(:date_work_can_start)
-        td = @basic_work_experience.date_work_can_start
+        th = BasicWorkExperience.human_attribute_name(:date_work_start)
+        td = @basic_work_experience.date_work_start
         th = BasicWorkExperience.human_attribute_name(:is_married)
         td = @basic_work_experience.is_married ? 'あり' : 'なし'
       tr
         th = BasicWorkExperience.human_attribute_name(:carrer_period)
         td = @basic_work_experience.carrer_period
-        th = 
-        td = 
+        th =
+        td =
 div.table-wrapper
-  table 
-    tbody 
-      tr 
+  table
+    tbody
+      tr
         th = BasicWorkExperience.human_attribute_name(:strong_field)
         td = @basic_work_experience.strong_field
       tr
@@ -45,4 +45,6 @@ div.table-wrapper
     tbody 
       tr 
         th = BasicWorkExperience.human_attribute_name(:self_promotion)
-        td = simple_format(h(@basic_work_experience.self_promotion), {}, sanitize: false, wrapper_tag: "div")
+        td = auto_link(simple_format(h(@basic_work_experience.self_promotion), {}, sanitize: false, wrapper_tag: "div"))
+div.btn-wrapper
+  = link_to '個人情報・自己PRを編集する', edit_basic_work_experience_url, class: 'btn btn-primary btn-position'
