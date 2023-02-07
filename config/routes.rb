@@ -6,4 +6,5 @@ Rails.application.routes.draw do
     get :complete, action: :complete, on: :collection
     get :search, action: :search, on: :collection
   end
+  resources :basic_work_experiences
 end

@@ -38,6 +38,9 @@ class IntroductionsController < ApplicationController
       end
       @introduction.image.attach(session[:signed_id]) if session[:signed_id].present?
       session[:signed_id] = nil
+
+      binding.pry
+      @introduction.create_basic_work_experience
       redirect_to complete_introductions_path
     else
       render :new

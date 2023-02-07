@@ -7,6 +7,8 @@ class Introduction < ApplicationRecord
   
   has_one_attached :image
 
+  has_one :basic_work_experience
+
   enum sex: { male: 0, female: 1}
 
   validates :name, presence: true
