@@ -27,7 +27,7 @@ ja:
         nearest_station: 最寄り駅
         date_work_can_start: 稼働
         carrer_period: 経歴
-        married: 配偶者
+        is_married: 配偶者
         strong_field: 得意分野
         strong_technology: 得意技術
         strong_business: 得意業務

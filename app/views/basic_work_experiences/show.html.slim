@@ -21,8 +21,8 @@ div.table-wrapper
       tr
         th = BasicWorkExperience.human_attribute_name(:date_work_can_start)
         td = @basic_work_experience.date_work_can_start
-        th = BasicWorkExperience.human_attribute_name(:married)
-        td = @basic_work_experience.married
+        th = BasicWorkExperience.human_attribute_name(:is_married)
+        td = @basic_work_experience.is_married ? 'あり' : 'なし'
       tr
         th = BasicWorkExperience.human_attribute_name(:carrer_period)
         td = @basic_work_experience.carrer_period
