@@ -8,6 +8,7 @@ class Introduction < ApplicationRecord
   has_one_attached :image
 
   has_one :basic_work_experience
+  has_many :work_experiences
 
   enum sex: { male: 0, female: 1}
 
