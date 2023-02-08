@@ -16,12 +16,12 @@ h1 職務経歴書基本情報の編集
         th = f.label :nearest_station
         td
           .form-group
-            = f.text_field :nearest_station, class: 'form', id: 'basic_work_experience_affiliation'
+            = f.text_field :nearest_station, class: 'form', id: 'basic_work_experience_nearest_station'
       tr
         th = f.label :date_work_start
         td
           .form-group
-            = f.text_field :date_work_start, class: 'form', id: 'basic_work_experience_date_work_start'
+            = f.date_field  :date_work_start, class: 'form-control', id: 'basic_work_experience_date_work_start'
       tr
         th = f.label :is_married
         td
@@ -54,7 +54,7 @@ h1 職務経歴書基本情報の編集
         th = f.label :self_promotion
         td
           .form-group
-            = f.text_field :self_promotion, class: 'content form', id: 'basic_work_experience_strong_self_promotion'
+            = f.text_field :self_promotion, class: 'content form', id: 'basic_work_experience_self_promotion'
 
   div.btn-wrapper
     = f.submit '保存して戻る', class: 'btn btn-primary btn-position'
