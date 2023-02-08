@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_07_063536) do
+ActiveRecord::Schema.define(version: 2023_02_08_025457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,14 +44,14 @@ ActiveRecord::Schema.define(version: 2023_02_07_063536) do
   end
 
   create_table "basic_work_experiences", force: :cascade do |t|
-    t.string "affiliation"
-    t.string "nearest_station"
+    t.string "affiliation", limit: 150
+    t.string "nearest_station", limit: 50
     t.date "date_work_start"
-    t.string "carrer_period"
+    t.string "carrer_period", limit: 20
     t.boolean "is_married", default: false, null: false
-    t.string "strong_field"
-    t.string "strong_technology"
-    t.string "strong_business"
+    t.string "strong_field", limit: 200
+    t.string "strong_technology", limit: 200
+    t.string "strong_business", limit: 200
     t.text "self_promotion"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
