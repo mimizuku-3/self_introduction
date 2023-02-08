@@ -8,6 +8,5 @@ class BasicWorkExperience < ApplicationRecord
   validates :strong_technology, length: {maximum: 200}
   validates :strong_business, length: {maximum: 200}
   validates :self_promotion, length: {maximum: 2000}
-  validates :date_work_start, date: true
-  
+
 end

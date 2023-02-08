@@ -90,5 +90,3 @@ gem 'pry-nav'
 gem 'rails_autolink'
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
-
-gem 'date_validator'

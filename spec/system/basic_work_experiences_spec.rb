@@ -51,15 +51,6 @@ describe '職務経歴書管理機能', type: :system do
     }
   end
 
-  shared_examples_for '「稼働」のバリデーションエラーとなること' do
-    it { expect(page).to have_content '稼働は日付ではありません' }
-  end
-
-  shared_examples_for '編集後の「稼働」が表示されること' do
-    it { expect(page).to have_content '2023-04-01' }
-  end
-
-
   ################################
   # 職務経歴書 表示
   ################################
@@ -79,7 +70,6 @@ describe '職務経歴書管理機能', type: :system do
   describe '職務経歴書 基本情報編集機能' do
     let(:basic_work_experience_affiliation) {'株式会社フジボウル 編集後'}
     let(:basic_work_experience_nearest_station) {'六町駅 編集後'}
-    let(:basic_work_experience_date_work_start) {'2023-04-01'}
     let(:basic_work_experience_carrer_period) {'10年6ヶ月'}
     let(:basic_work_experience_strong_field) {'プログラミング 編集後'}
     let(:basic_work_experience_strong_technology) {'PHP / JavaScript / MySQL / HTML 編集後'}
@@ -95,7 +85,6 @@ describe '職務経歴書管理機能', type: :system do
       before do
         fill_in '所属', with: basic_work_experience_affiliation
         fill_in '最寄り駅', with: basic_work_experience_nearest_station
-        fill_in '稼働', with: basic_work_experience_date_work_start
         choose 'あり' # is_married
         fill_in '経歴', with: basic_work_experience_carrer_period
         fill_in '得意分野', with: basic_work_experience_strong_field
@@ -110,7 +99,6 @@ describe '職務経歴書管理機能', type: :system do
       it { expect(page).to have_content '女性' }
       it { expect(page).to have_content '六町駅 編集後' }
       it { expect(page).to have_content '19歳' }
-      it { expect(page).to have_content '2023-04-01' }
       it { expect(page).to have_content 'あり' }
       it { expect(page).to have_content '10年6ヶ月' }
       it { expect(page).to have_content 'プログラミング 編集後' }
@@ -123,7 +111,6 @@ describe '職務経歴書管理機能', type: :system do
       before do
         fill_in '所属', with: basic_work_experience_affiliation
         fill_in '最寄り駅', with: basic_work_experience_nearest_station
-        fill_in '稼働', with: basic_work_experience_date_work_start
         choose 'あり' # is_married
         fill_in '経歴', with: basic_work_experience_carrer_period
         fill_in '得意分野', with: basic_work_experience_strong_field
@@ -185,34 +172,6 @@ describe '職務経歴書管理機能', type: :system do
         end
       end
     end
-
-    describe '「稼働」バリデーション・形式チェック' do
-      before do
-        fill_in '稼働', with: basic_work_experience_date_work_start
-        click_on '保存して戻る'
-      end
-
-      context '「稼働」に存在しない日付を入力したとき' do
-        let(:basic_work_experience_date_work_start) {'2023-02-29'}
-        it_behaves_like '「稼働」のバリデーションエラーとなること'
-      end
-  
-      context '「稼働」に文字を入力したとき' do
-        let(:basic_work_experience_date_work_start) {'hoge'}
-        it_behaves_like '「稼働」のバリデーションエラーとなること'
-      end
-  
-      context '「稼働」にyyyy/mm/dd形式で入力したとき' do
-        let(:basic_work_experience_date_work_start) {'2023/4/1'}
-        it_behaves_like '編集後の「稼働」が表示されること'
-      end
-  
-      context '「稼働」にyyyymmdd形式で入力したとき' do
-        let(:basic_work_experience_date_work_start) {'20230401'}
-        it_behaves_like '編集後の「稼働」が表示されること'
-      end
-    end
-
   end
 
 end
