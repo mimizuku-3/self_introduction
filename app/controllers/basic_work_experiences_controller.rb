@@ -2,6 +2,7 @@ class BasicWorkExperiencesController < ApplicationController
   before_action :find_basic_work_experience
 
   def show
+    @work_experiences = @introduction.work_experiences
   end
 
   def edit

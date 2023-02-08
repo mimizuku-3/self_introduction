@@ -12,5 +12,24 @@ class WorkExperience < ApplicationRecord
   validates :fw_mw_tool_etc, length: {maximum: 400}
   validates :responsible_process, length: {maximum: 400}
 
+  enum role: { 
+    zero: 0, 
+    PG: 1, 
+    SE:2, 
+    SE_PG:3, 
+    PL:4,
+    PL_PG: 5, 
+    PL_SE: 6, 
+    PL_SE_PG: 7, 
+    PM: 8, 
+    PM_PG: 9, 
+    PM_SE: 10, 
+    PM_SE_PG: 11, 
+    PM_PL: 12, 
+    PM_PL_PG: 13, 
+    PM_PL_SE: 14, 
+    PM_PL_SE_PG: 15, 
+  } 
+
 end
 
