@@ -37,7 +37,7 @@ ja:
         updated_at: 更新日時
       work_experience:
         start_month: 開始年月
-        end_month: 自己紹介ID
+        end_month: 終了年月
         project_name: 業務名
         project_detail: 業務詳細
         role: 役割

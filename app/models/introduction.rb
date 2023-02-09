@@ -20,4 +20,9 @@ class Introduction < ApplicationRecord
   validates :prefecture_id, presence: true
 
   scope :recent, -> {order(created_at: :desc)}
+
+  def work_experiences
+    return WorkExperience.where(introduction_id: self.id).order(start_month: :desc)
+  end
+  
 end
