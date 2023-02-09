@@ -33,7 +33,7 @@ describe '職務経歴書管理機能', type: :system do
   ################################
   # 共通期待値
   ################################
-  shared_examples_for '自己紹介Aの職務経歴が表示されること' do
+  shared_examples_for '自己紹介Aの職務経歴書（基本情報）が表示されること' do
     it {
       expect(page).to have_content 'イッケンメノジコショウカイ'
       expect(page).to have_content '株式会社フジボウル'
@@ -60,7 +60,7 @@ describe '職務経歴書管理機能', type: :system do
         basic_work_experience_a
         visit basic_work_experience_path(introduction_a)
       end
-      it_behaves_like '自己紹介Aの職務経歴が表示されること'
+      it_behaves_like '自己紹介Aの職務経歴書（基本情報）が表示されること'
     end
   end
 
