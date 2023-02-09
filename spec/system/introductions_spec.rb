@@ -27,6 +27,34 @@ describe '自己紹介管理機能', type: :system do
       updated_at: '2023-01-02 00:00:00'
     )
   }
+  let!(:basic_work_experience_a) {
+    FactoryBot.create(:basic_work_experience,
+    introduction: introduction_a,
+    affiliation: '株式会社フジボウル',
+    nearest_station: '六町駅',
+    date_work_start:'2023-03-01',
+    carrer_period: '6年6ヶ月',
+    is_married: false,
+    strong_field: 'プログラミング',
+    strong_technology: 'PHP / JavaScript / MySQL / HTML',
+    strong_business: '環境構築',
+    self_promotion: 'すぐに順応できるプログラム力です。'
+    )
+  }
+  let!(:basic_work_experience_b) {
+    FactoryBot.create(:basic_work_experience,
+    introduction: introduction_b,
+    affiliation: '株式会社フジボウル',
+    nearest_station: '六町駅',
+    date_work_start:'2023-03-01',
+    carrer_period: '6年6ヶ月',
+    is_married: false,
+    strong_field: 'プログラミング',
+    strong_technology: 'PHP / JavaScript / MySQL / HTML',
+    strong_business: '環境構築',
+    self_promotion: 'すぐに順応できるプログラム力です。'
+    )
+  }
   let!(:hobby_movie) { FactoryBot.create(:hobby, hobby_name: '映画鑑賞') }
   let!(:hobby_reading) { FactoryBot.create(:hobby, hobby_name: '読書') }
   let!(:hobby_shopping) { FactoryBot.create(:hobby, hobby_name: '買い物') }

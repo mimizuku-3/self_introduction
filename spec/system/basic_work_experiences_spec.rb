@@ -58,7 +58,7 @@ describe '職務経歴書管理機能', type: :system do
     context '自己紹介一覧画面から遷移した時' do
       before do
         basic_work_experience_a
-        visit basic_work_experience_path(introduction_a)
+        visit basic_work_experience_path(basic_work_experience_a)
       end
       it_behaves_like '自己紹介Aの職務経歴書（基本情報）が表示されること'
     end
@@ -77,7 +77,7 @@ describe '職務経歴書管理機能', type: :system do
     let(:basic_work_experience_self_promotion) {'すぐに順応できるプログラム力です。 編集後'}
     before do
       basic_work_experience_a
-      visit basic_work_experience_path(introduction_a)
+      visit basic_work_experience_path(basic_work_experience_a)
       click_on '個人情報・自己PRを編集する'
     end
 

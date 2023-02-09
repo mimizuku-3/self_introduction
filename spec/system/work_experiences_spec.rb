@@ -102,7 +102,7 @@ describe '職務経歴書管理機能', type: :system do
   describe '職務経歴 基本情報の表示' do
     context '自己紹介一覧画面から遷移した時' do
       before do
-        visit basic_work_experience_path(introduction_a)
+        visit basic_work_experience_path(basic_work_experience_a)
       end
       it_behaves_like '自己紹介Aの職務経歴aが表示されること'
       it_behaves_like '自己紹介Aの職務経歴bが表示されること'
