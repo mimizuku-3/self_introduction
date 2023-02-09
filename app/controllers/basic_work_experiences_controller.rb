@@ -2,7 +2,7 @@ class BasicWorkExperiencesController < ApplicationController
   before_action :find_basic_work_experience
 
   def show
-    @work_experiences = @introduction.work_experiences
+    @work_experiences = WorkExperience.where(introduction_id: @introduction.id).order(start_month: :desc)
   end
 
   def edit
