@@ -29,7 +29,15 @@ class WorkExperience < ApplicationRecord
     PM_PL_PG: 13, 
     PM_PL_SE: 14, 
     PM_PL_SE_PG: 15, 
-  } 
+  }
+
+  def set_role_by_bit_management(roles)
+    sum_role = 0
+    roles.each do |role|
+      sum_role += role.to_i
+    end
+    self.role = sum_role
+  end
 
 end
 

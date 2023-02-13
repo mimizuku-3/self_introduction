@@ -228,6 +228,7 @@ ja:
         female: 女性
     work_experience:
       role:
+        zero: ''
         PG: PG
         SE: SE
         SE_PG: SE/PG
