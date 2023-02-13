@@ -78,9 +78,11 @@ div.btn-wrapper
             td rowspan="3" = work_experience.server
             td rowspan="3" = work_experience.fw_mw_tool_etc
             td rowspan="3" = work_experience.responsible_process
-            td rowspan="3" = link_to '職務経歴を編集する', "/work_experiences/#{work_experience.id}/edit", class: 'btn btn-primary btn-position'
+            td rowspan="3" = link_to '職務経歴を編集する', "/work_experiences/#{work_experience.id}/edit", remote: true, class: 'btn btn-primary btn-position'
           tr
             td rowspan="2" = work_experience.project_detail
             td rowspan="2" = work_experience.role_description
           tr
             td colspan="3" = '(6ヶ月)'
+#mask.hidden 
+#modal.hidden 
