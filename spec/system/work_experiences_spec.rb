@@ -44,7 +44,7 @@ describe '職務経歴書管理機能', type: :system do
     responsible_process: '実装'
     )
   }
-  let!(:work_experience_b) {
+  let(:work_experience_b) {
     FactoryBot.create(:work_experience,
     introduction: introduction_a,
     start_month: '2019-12-01',
@@ -102,10 +102,34 @@ describe '職務経歴書管理機能', type: :system do
   describe '職務経歴 基本情報の表示' do
     context '自己紹介一覧画面から遷移した時' do
       before do
+        work_experience_b
         visit basic_work_experience_path(basic_work_experience_a)
       end
       it_behaves_like '自己紹介Aの職務経歴aが表示されること'
       it_behaves_like '自己紹介Aの職務経歴bが表示されること'
+    end
+  end
+
+  ################################
+  # 職務経歴書 職務経歴編集機能
+  ################################
+  describe '職務経歴 職務経歴編集機能' do
+    let(:work_experience_project_name) {'ECサイト開発・リニューアル 編集後'}
+    before do
+      visit basic_work_experience_path(basic_work_experience_a)
+      # find(:ypath, "職務経歴を編集するボタンの ypath").hover.click
+      execute_script('window.scrollBy(10000,0)')
+      click_on '職務経歴を編集する'
+    end
+
+    context '保存して戻るを押したとき' do
+      before do
+        fill_in '業務名', with: work_experience_project_name
+        click_on '保存して戻る'
+      end
+      it '正常に更新されること' do
+        expect(page).to have_content 'ECサイト開発・リニューアル 編集後'
+      end
     end
   end
 end

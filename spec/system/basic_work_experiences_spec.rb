@@ -76,7 +76,6 @@ describe '職務経歴書管理機能', type: :system do
     let(:basic_work_experience_strong_business) {'環境構築 編集後'}
     let(:basic_work_experience_self_promotion) {'すぐに順応できるプログラム力です。 編集後'}
     before do
-      basic_work_experience_a
       visit basic_work_experience_path(basic_work_experience_a)
       click_on '個人情報・自己PRを編集する'
     end
