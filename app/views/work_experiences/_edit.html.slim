@@ -12,12 +12,12 @@ h1 職務経歴書 職務経歴の編集
           th = f.label :start_month
           td
             .form-group
-              = f.text_field :start_month, class: 'form', id: 'work_experience_start_month'
+              = f.date_select :start_month, class: 'form', id: 'work_experience_start_month', start_year: 1980, discard_day: true
         tr
           th = f.label :end_month
           td
             .form-group
-              = f.text_field :end_month, class: 'form', id: 'work_experience_end_name'
+              = f.date_select :end_month, class: 'form', id: 'work_experience_end_month', start_year: 1980, discard_day: true
         tr
           th = f.label :project_name
           td

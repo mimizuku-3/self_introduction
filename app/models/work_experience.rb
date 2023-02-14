@@ -12,6 +12,8 @@ class WorkExperience < ApplicationRecord
   validates :fw_mw_tool_etc, length: {maximum: 400}
   validates :responsible_process, length: {maximum: 400}
 
+  validate :start_end_check
+
   enum role: { 
     zero: 0, 
     PG: 1, 
@@ -37,6 +39,36 @@ class WorkExperience < ApplicationRecord
       sum_role += role.to_i
     end
     self.role = sum_role
+  end
+
+  def diff_years_months(d1, d2)
+    # d1の1日を作ってd2を補正
+    d2 -= d1 - Date.new( d1.year, d1.month, 1 )
+
+    # 月数で計算
+    diff_months = d2.year * 12 + d2.month - d1.year * 12 - d1.month
+    diff_months += 1
+
+    # 年月日に戻す
+    diff_years = diff_months / 12
+    diff_months -= diff_years * 12
+
+    if diff_years == 0
+      diff_years_months = "#{diff_months}ヶ月"
+    elsif diff_months == 0
+      diff_years_months = "#{diff_years}年"
+    else
+      diff_years_months = "#{diff_years}年#{diff_months}ヶ月"
+    end
+    return diff_years_months
+  end
+
+  ##############################
+  # バリデーション
+  ##############################
+  def start_end_check
+    errors.add(:end_month, "は開始年月より後の年月を入力してください。") unless
+    self.start_month < self.end_month 
   end
 
 end

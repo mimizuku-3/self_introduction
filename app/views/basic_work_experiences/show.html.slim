@@ -61,16 +61,15 @@ div.btn-wrapper
         th = WorkExperience.human_attribute_name(:fw_mw_tool_etc)
         th = WorkExperience.human_attribute_name(:responsible_process)
         th
-      - if @introduction.work_experiences.blank?
-          .btn-wrapper
-            = link_to '職務経歴を追加する', "/introductions/#{@introduction.id}/work_experiences/new", remote: true, class: 'btn btn-primary btn-position'
-      - else
+        .btn-wrapper
+          = link_to '職務経歴を追加する', "/introductions/#{@introduction.id}/work_experiences/new", remote: true, class: 'btn btn-primary btn-position'
+      - if @introduction.work_experiences.present?
         - @introduction.work_experiences.each_with_index do |work_experience, i|
           tr
             td rowspan="3" = i+1
-            td rowspan="2" = work_experience.start_month
+            td rowspan="2" = work_experience.start_month.strftime("%Y年%m月")
             td rowspan="2" = '-'
-            td rowspan="2" = work_experience.end_month
+            td rowspan="2" = work_experience.end_month.strftime("%Y年%m月")
             td = work_experience.project_name
             td = work_experience.role_i18n
             td rowspan="3" = work_experience.language
@@ -83,6 +82,6 @@ div.btn-wrapper
             td rowspan="2" = work_experience.project_detail
             td rowspan="2" = work_experience.role_description
           tr
-            td colspan="3" = '(6ヶ月)'
+            td colspan="3" = work_experience.diff_years_months(work_experience.start_month, work_experience.end_month)
 #mask.hidden 
 #modal.hidden 
