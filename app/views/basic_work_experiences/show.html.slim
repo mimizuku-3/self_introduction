@@ -63,7 +63,7 @@ div.btn-wrapper
         th
       - if @introduction.work_experiences.blank?
           .btn-wrapper
-            = link_to '職務経歴を追加する', "/introductions/#{@introduction.id}/work_experiences/new", class: 'btn btn-primary btn-position'
+            = link_to '職務経歴を追加する', "/introductions/#{@introduction.id}/work_experiences/new", remote: true, class: 'btn btn-primary btn-position'
       - else
         - @introduction.work_experiences.each_with_index do |work_experience, i|
           tr

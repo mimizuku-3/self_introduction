@@ -1,4 +1,4 @@
-console.log("edit.js.erbが呼ばれました")
+console.log("new.js.erbが呼ばれました")
 
 <%# # モーダルを取得 %>
 var modal = document.getElementById('modal');
@@ -7,7 +7,7 @@ var mask = document.getElementById('mask');
 
 <%# # モーダルの中身をshowビューに置き換えます。
 # 部分テンプレートのパス、localsの値はアプリにより異なります。 %>
-modal.innerHTML = '<%= escape_javascript(render partial: 'edit') %>' ;
+modal.innerHTML = '<%= escape_javascript(render partial: 'new') %>' ;
 
 <%# # hiddenクラスを消してモーダルとマスクを表示させます。 %>
 modal.classList.remove('hidden');
