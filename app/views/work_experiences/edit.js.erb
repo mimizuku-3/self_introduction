@@ -1,5 +1,6 @@
-console.log("edit.js.erbが呼ばれました")
-
+<%# -------------------------------------------------------- %>
+<%# モーダルウィンドウとして編集画面を開く %>
+<%# -------------------------------------------------------- %>
 <%# # モーダルを取得 %>
 var modal = document.getElementById('modal');
 <%# # マスクを取得 %>
@@ -18,3 +19,23 @@ mask.addEventListener('click', () => {
   modal.classList.add('hidden');
   mask.classList.add('hidden');
   });
+
+
+<%# -------------------------------------------------------- %>
+<%# 編集画面を開いたときに役割のチェックボックスにチェックをつける %>
+<%# -------------------------------------------------------- %>
+<%# ビット演算子を2進数に戻す %>
+var role_as_binary_number = <%= @work_experience.role_as_binary_number %>
+role_as_binary_number = role_as_binary_number.toString().padStart(4, '0');
+
+<%# 1となっている桁にチェックをつける %>
+var role_i_digit
+var pl_check_box
+for (var i = 0; i < role_as_binary_number.length; i++) {
+  role_i_digit = role_as_binary_number.charAt(i)
+  pl_check_box = document.getElementById('work_experience_role_' + i);
+  if (role_i_digit == 1) {
+    pl_check_box.checked = true;
+  }
+}
+
