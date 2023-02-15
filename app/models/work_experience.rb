@@ -72,8 +72,10 @@ class WorkExperience < ApplicationRecord
   # バリデーション
   ##############################
   def start_end_check
-    errors.add(:end_month, "は開始年月より後の年月を入力してください。") unless
-    self.start_month < self.end_month 
+    if self.start_month.present? && self.end_month.present?
+      errors.add(:end_month, "は開始年月より後の年月を入力してください。") unless
+      self.start_month < self.end_month
+    end
   end
 
 end
