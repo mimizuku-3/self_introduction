@@ -4,10 +4,11 @@ class Introduction < ApplicationRecord
   has_many :hobby_introductions
   has_many :hobbies, through: :hobby_introductions, dependent: :destroy
   accepts_nested_attributes_for :hobby_introductions, allow_destroy: true
-  
+
   has_one_attached :image
 
   has_one :basic_work_experience
+  has_many :work_experiences
 
   enum sex: { male: 0, female: 1}
 
@@ -19,4 +20,9 @@ class Introduction < ApplicationRecord
   validates :prefecture_id, presence: true
 
   scope :recent, -> {order(created_at: :desc)}
+
+  def work_experiences
+    return WorkExperience.where(introduction_id: self.id).order(start_month: :desc)
+  end
+  
 end

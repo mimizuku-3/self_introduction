@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_08_025457) do
+ActiveRecord::Schema.define(version: 2023_02_08_044252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,24 @@ ActiveRecord::Schema.define(version: 2023_02_08_025457) do
     t.integer "sex", null: false
     t.integer "prefecture_id", null: false
     t.string "furigana"
+  end
+
+  create_table "work_experiences", force: :cascade do |t|
+    t.date "start_month", null: false
+    t.date "end_month", null: false
+    t.string "project_name", limit: 200
+    t.text "project_detail"
+    t.integer "role", limit: 2
+    t.text "role_description"
+    t.text "language"
+    t.text "database"
+    t.text "server"
+    t.text "fw_mw_tool_etc"
+    t.text "responsible_process"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "introduction_id", null: false
+    t.index ["introduction_id"], name: "index_work_experiences_on_introduction_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

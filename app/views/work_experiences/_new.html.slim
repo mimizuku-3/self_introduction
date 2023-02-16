@@ -1,0 +1,74 @@
+h1 職務経歴書 職務経歴の登録
+- if @work_experience.errors.present?
+  ul#error_explanation
+    - @work_experience.errors.full_messages.each do |message|
+      li= message
+
+= form_with model: @work_experience, url: "/introductions/#{@introduction.id}/work_experiences/create" do |f|
+  .form-wrapper
+    div.table-wrapper
+      table
+        tr
+          th = f.label :start_month
+          td
+            .form-group
+              = f.date_select :start_month, class: 'form', id: 'work_experience_start_month', start_year: 1980, discard_day: true, default: -3.months.from_now
+        tr
+          th = f.label :end_month
+          td
+            .form-group
+              = f.date_select :end_month, class: 'form', id: 'work_experience_end_month', start_year: 1980, discard_day: true
+        tr
+          th = f.label :project_name
+          td
+            .form-group
+              = f.text_field :project_name, class: 'form', id: 'work_experience_project_name'
+        tr
+          th = f.label :project_detail
+          td
+            .form-group
+              = f.text_field :project_detail, class: 'form', id: 'work_experience_project_detail'
+        tr
+          th = f.label :role
+          td
+            .form-group
+              = f.check_box :role, {class: "radio", id: "work_experience_role_pm", multiple: true}, 8, 0
+              = f.label :role_pm, 'PM'
+              = f.check_box :role, {class: "radio", id: "work_experience_role_pl", multiple: true}, 4, 0
+              = f.label :role_pl, 'PL'
+              = f.check_box :role, {class: "radio", id: "work_experience_role_se", multiple: true}, 2, 0
+              = f.label :role_se, 'SE'
+              = f.check_box :role, {class: "radio", id: "work_experience_role_pg", multiple: true}, 1, 0
+              = f.label :role_pg, 'PG'
+        tr
+          th = f.label :role_description
+          td
+            .form-group
+              = f.text_field :role_description, class: 'form', id: 'work_experience_role_description'
+        tr
+          th = f.label :language
+          td
+            .form-group
+              = f.text_field :language, class: 'form', id: 'work_experience_language'
+        tr
+          th = f.label :database
+          td
+            .form-group
+              = f.text_field :database, class: 'form', id: 'work_experience_database'
+        tr
+          th = f.label :server
+          td
+            .form-group
+              = f.text_field :server, class: 'form', id: 'work_experience_server'
+        tr
+          th = f.label :fw_mw_tool_etc
+          td
+            .form-group
+              = f.text_field :fw_mw_tool_etc, class: 'form', id: 'work_experience_fw_mw_tool_etc'
+        tr
+          th = f.label :responsible_process
+          td
+            .form-group
+              = f.text_field :responsible_process, class: 'form', id: 'work_experience_responsible_process'
+    div.btn-wrapper
+      = f.submit '保存して戻る', class: 'btn btn-primary btn-position'

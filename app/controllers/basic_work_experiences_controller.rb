@@ -1,5 +1,9 @@
 class BasicWorkExperiencesController < ApplicationController
-  before_action :find_basic_work_experience
+  before_action :find_basic_work_experience, only:[:show, :edit, :update]
+
+  def index
+
+  end
 
   def show
   end
@@ -8,9 +12,8 @@ class BasicWorkExperiencesController < ApplicationController
   end
 
   def update
-    @basic_work_experience.attributes = basic_work_experience_params_edit
     if @basic_work_experience.update(basic_work_experience_params_edit)
-      redirect_to basic_work_experience_path(@introduction), notice: "#{@introduction.name}さんの職務経歴書（基本情報）を更新しました。"
+      redirect_to basic_work_experience_path(@basic_work_experience), notice: "#{@basic_work_experience.introduction.name}さんの職務経歴書（基本情報）を更新しました。"
     else
       render :edit
     end
@@ -18,8 +21,8 @@ class BasicWorkExperiencesController < ApplicationController
 
   private
   def find_basic_work_experience
-    @introduction = Introduction.find(params[:id])
-    @basic_work_experience = @introduction.basic_work_experience
+    @basic_work_experience = BasicWorkExperience.find(params[:id])
+    @introduction = @basic_work_experience.introduction
   end
 
   def basic_work_experience_params_edit

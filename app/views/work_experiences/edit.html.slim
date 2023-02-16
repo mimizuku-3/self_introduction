@@ -1,0 +1,8 @@
+h1 職務経歴書 職務経歴の編集
+- if @work_experience.errors.present?
+  ul#error_explanation
+    - @work_experience.errors.full_messages.each do |message|
+      li= message
+      
+= render partial: 'edit', locals: {work_experience: @work_experience}
+

@@ -35,6 +35,18 @@ ja:
         self_promotion: 自己PR
         created_at: 登録日時
         updated_at: 更新日時
+      work_experience:
+        start_month: 開始年月
+        end_month: 終了年月
+        project_name: 業務名
+        project_detail: 業務詳細
+        role: 役割
+        role_description: 役割詳細
+        language: 使用言語
+        database: DB
+        server: サーバー
+        fw_mw_tool_etc: FW・MWツール等
+        responsible_process: 担当工程
   date:
     abbr_day_names:
     - 日
@@ -214,3 +226,21 @@ ja:
       sex:
         male: 男性
         female: 女性
+    work_experience:
+      role:
+        zero: ''
+        PG: PG
+        SE: SE
+        SE_PG: SE/PG
+        PL: PL
+        PL_PG: PL/PG
+        PL_SE: PL/SE
+        PL_SE_PG: PL/SE/PG
+        PM: PM
+        PM_PG: PM/PG
+        PM_SE: PM/SE
+        PM_SE_PG: PM/SE/PG
+        PM_PL: PM/PL
+        PM_PL_PG: PM/PL/PG
+        PM_PL_SE: PM/PL/SE
+        PM_PL_SE_PG: PM/PL/SE/PG
