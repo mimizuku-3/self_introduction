@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe '職務経歴書管理機能', type: :system do
-  let(:introduction_a) {
+  let!(:introduction_a) {
     FactoryBot.create(:introduction,
       name: '1件目の自己紹介',
       furigana: 'イッケンメノジコショウカイ',
@@ -66,8 +66,8 @@ describe '職務経歴書管理機能', type: :system do
   ################################
   shared_examples_for '自己紹介Aの職務経歴aが表示されること' do
     it {
-      expect(page).to have_content '2020-12-01'
-      expect(page).to have_content '2023-03-01'
+      expect(page).to have_content '2020年12月'
+      expect(page).to have_content '2023年03月'
       expect(page).to have_content 'ECサイト開発・リニューアル'
       expect(page).to have_content '機能追加'
       expect(page).to have_content 'PM/PL/SE/PG'
@@ -82,8 +82,8 @@ describe '職務経歴書管理機能', type: :system do
 
   shared_examples_for '自己紹介Aの職務経歴bが表示されること' do
     it {
-      expect(page).to have_content '2019-12-01'
-      expect(page).to have_content '2020-11-30'
+      expect(page).to have_content '2019年12月'
+      expect(page).to have_content '2020年11月'
       expect(page).to have_content '不動産会社向けBtoBシステム開発'
       expect(page).to have_content 'インシデント対応'
       expect(page).to have_content 'PM/PL/SE'
@@ -113,23 +113,115 @@ describe '職務経歴書管理機能', type: :system do
   ################################
   # 職務経歴書 職務経歴編集機能
   ################################
-  describe '職務経歴 職務経歴編集機能' do
-    let(:work_experience_project_name) {'ECサイト開発・リニューアル 編集後'}
-    before do
-      visit basic_work_experience_path(basic_work_experience_a)
-      # find(:ypath, "職務経歴を編集するボタンの ypath").hover.click
-      execute_script('window.scrollBy(10000,0)')
-      click_on '職務経歴を編集する'
+  describe '職務経歴 編集・登録機能' do
+    let(:project_name) {'ECサイト開発・リニューアル 編集後'}
+    let(:project_detail) {'機能追加 編集後'}
+    let(:role_description) {'SE: 1人 PG:2～5人 編集後'}
+    let(:language) {'Ruby 編集後'}
+    let(:database) {'PostgreSQL 編集後'}
+    let(:server) {'AWS 編集後'}
+    let(:fw_mw_tool_etc) {'Ruby on Rails 編集後'}
+    let(:responsible_process) {'実装 編集後'}
+
+    describe '職務経歴 編集機能' do
+      before do
+        visit edit_work_experience_path(work_experience_a)
+      end
+
+      context '保存して戻るを押したとき' do
+        before do
+          select '2021', from: 'work_experience_start_month_1i'
+          select '12月', from: 'work_experience_start_month_2i'
+          select '2024', from: 'work_experience_end_month_1i'
+          select '3月', from: 'work_experience_end_month_2i'
+          fill_in '業務名', with: project_name
+          fill_in '業務詳細', with: project_detail
+          check 'PL'
+          fill_in '役割詳細', with: role_description
+          fill_in '使用言語', with: language
+          fill_in 'DB', with: database
+          fill_in 'サーバー', with: server
+          fill_in 'FW・MWツール等', with: fw_mw_tool_etc
+          fill_in '担当工程', with: responsible_process
+          click_on '保存して戻る'
+        end
+        it '正常に更新されること' do
+          expect(page).to have_content '2021年12月'
+          expect(page).to have_content '2024年03月'
+          expect(page).to have_content 'ECサイト開発・リニューアル 編集後'
+          expect(page).to have_content '機能追加 編集後'
+          expect(page).to have_content 'PL'
+          expect(page).to have_content 'SE: 1人 PG:2～5人 編集後'
+          expect(page).to have_content 'Ruby 編集後'
+          expect(page).to have_content 'PostgreSQL 編集後'
+          expect(page).to have_content 'AWS 編集後'
+          expect(page).to have_content 'Ruby on Rails 編集後'
+          expect(page).to have_content '実装 編集後'
+        end
+      end
+
+      # context '最大文字数を超過したとき' do
+      #   let(:project_name) {'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRS'}
+      #   before do
+      #     fill_in '業務名', with: project_name
+      #     click_on '保存して戻る'
+      #   end
+      #   it 'バリデーションエラーメッセージが表示される' do
+      #     expect(page).to have_content '業務名は200文字以内で入力してください'
+      #   end
+      # end
     end
 
-    context '保存して戻るを押したとき' do
+    ################################
+    # 職務経歴書 職務経歴登録機能
+    ################################
+    describe '職務経歴 職務経歴登録機能' do
       before do
-        fill_in '業務名', with: work_experience_project_name
-        click_on '保存して戻る'
+        visit "/introductions/#{introduction_a.id}/work_experiences/new"
       end
-      it '正常に更新されること' do
-        expect(page).to have_content 'ECサイト開発・リニューアル 編集後'
+
+      context '保存して戻るを押したとき' do
+        before do
+          select '2021', from: 'work_experience_start_month_1i'
+          select '12月', from: 'work_experience_start_month_2i'
+          select '2024', from: 'work_experience_end_month_1i'
+          select '3月', from: 'work_experience_end_month_2i'
+          fill_in '業務名', with: project_name
+          fill_in '業務詳細', with: project_detail
+          check 'PL'
+          fill_in '役割詳細', with: role_description
+          fill_in '使用言語', with: language
+          fill_in 'DB', with: database
+          fill_in 'サーバー', with: server
+          fill_in 'FW・MWツール等', with: fw_mw_tool_etc
+          fill_in '担当工程', with: responsible_process
+          click_on '保存して戻る'
+        end
+        it '正常に登録されること' do
+          expect(page).to have_content '2021年12月'
+          expect(page).to have_content '2024年03月'
+          expect(page).to have_content 'ECサイト開発・リニューアル 編集後'
+          expect(page).to have_content '機能追加 編集後'
+          expect(page).to have_content 'PL'
+          expect(page).to have_content 'SE: 1人 PG:2～5人 編集後'
+          expect(page).to have_content 'Ruby 編集後'
+          expect(page).to have_content 'PostgreSQL 編集後'
+          expect(page).to have_content 'AWS 編集後'
+          expect(page).to have_content 'Ruby on Rails 編集後'
+          expect(page).to have_content '実装 編集後'
+        end
       end
+
+      # context '最大文字数を超過したとき' do
+      #   let(:project_name) {'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRS'}
+      #   before do
+      #     fill_in '業務名', with: project_name
+      #     click_on '保存して戻る'
+      #   end
+      #   it 'バリデーションエラーメッセージが表示される' do
+      #     expect(page).to have_content '業務名は200文字以内で入力してください'
+      #   end
+      # end
     end
   end
 end

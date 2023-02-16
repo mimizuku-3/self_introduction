@@ -64,7 +64,6 @@ class WorkExperience < ApplicationRecord
   end
 
   def role_as_binary_number
-    # return sprintf("%04d", self.role_before_type_cast.to_s(2))
     return self.role_before_type_cast.to_s(2)
   end
 
@@ -72,8 +71,10 @@ class WorkExperience < ApplicationRecord
   # バリデーション
   ##############################
   def start_end_check
-    errors.add(:end_month, "は開始年月より後の年月を入力してください。") unless
-    self.start_month < self.end_month 
+    if self.start_month.present? && self.end_month.present?
+      errors.add(:end_month, "は開始年月より後の年月を入力してください。") unless
+      self.start_month < self.end_month
+    end
   end
 
 end
