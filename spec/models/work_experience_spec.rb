@@ -2,31 +2,10 @@ require 'rails_helper'
 
 RSpec.describe WorkExperience, type: :model do
   before do
-    @introduction = Introduction.create(
-      name: 'フジ　太郎',
-      furigana: 'フジ　タロウ',
-      age: 29,
-      address: '港区西麻布３丁目２０−６ 杉友ビル2F',
-      content: 'テストデータです！！',
-      sex: 0,
-      prefecture_id: 1
-    )
-    @work_experience = @introduction.work_experiences.create(
-      start_month: "2020-12-01",
-      end_month: "2021-12-01",
-      project_name: "ECサイト構築",
-      project_detail: "担当業務",
-      role: 15,
-      role_description: "SE：2名",
-      language: "Java",
-      database: "Oracle",
-      server: "glassfish",
-      fw_mw_tool_etc: "Netbeans",
-      responsible_process: "詳細設計",
-    )
+    @work_experience = FactoryBot.create(:work_experience)
   end
 
-  it "is valid with a start_month, end_month, project_name, project_detail, role, role_description, language, database, server, fw_mw_tool_etc, and responsible_process" do
+  it "has a valid factory" do
     expect(@work_experience).to be_valid
   end
 
