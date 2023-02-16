@@ -10,6 +10,13 @@ RSpec.describe WorkExperience, type: :model do
   end
 
   context "validation" do
+    it "returns error when end_month is earlier than start_month" do
+      @work_experience.end_month = "2021-01-01"
+      @work_experience.start_month = "2021-02-01"
+      @work_experience.valid?
+      expect(@work_experience.errors[:end_month]).to include("は開始年月より後の年月を入力してください。")
+    end
+
     it "allows 200 character project_name" do
       @work_experience.project_name = "BCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRS"
       expect(@work_experience).to be_valid

@@ -64,7 +64,6 @@ class WorkExperience < ApplicationRecord
   end
 
   def role_as_binary_number
-    # return sprintf("%04d", self.role_before_type_cast.to_s(2))
     return self.role_before_type_cast.to_s(2)
   end
 
