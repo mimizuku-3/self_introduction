@@ -64,12 +64,16 @@ RSpec.describe Introduction, type: :model do
       @work_experience = FactoryBot.create(:work_experience, introduction: @introduction)
       @first_work_experience = FactoryBot.create(:work_experience, :first_work_experience, introduction: @introduction)
       @last_work_experience = FactoryBot.create(:work_experience, :last_work_experience, introduction: @introduction)
+      @discarded_work_experience = FactoryBot.create(:work_experience, discarded_at: "2023-02-17", introduction: @introduction)
+      @orderedWorkExperiences = @introduction.work_experiences
     end
     it "returns order by start_month desc" do
-      orderedWorkExperiences = @introduction.work_experiences
-      expect(orderedWorkExperiences[0]).to eq(@last_work_experience)
-      expect(orderedWorkExperiences[1]).to eq(@work_experience)
-      expect(orderedWorkExperiences[2]).to eq(@first_work_experience)
+      expect(@orderedWorkExperiences[0]).to eq(@last_work_experience)
+      expect(@orderedWorkExperiences[1]).to eq(@work_experience)
+      expect(@orderedWorkExperiences[2]).to eq(@first_work_experience)
+    end
+    it "does not return discarded work_experiences" do
+      expect(@orderedWorkExperiences).to_not include(@discarded_work_experience)
     end
   end
 

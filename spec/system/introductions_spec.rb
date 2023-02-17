@@ -27,6 +27,12 @@ describe '自己紹介管理機能', type: :system do
       updated_at: '2023-01-02 00:00:00'
     )
   }
+  let!(:discarded_introduction) {
+    FactoryBot.create(:introduction,
+      name: '削除済み自己紹介',
+      discarded_at: '2023-02-17 00:00:00'
+    )
+  }
   let!(:basic_work_experience_a) {
     FactoryBot.create(:basic_work_experience,
     introduction: introduction_a,
@@ -75,11 +81,7 @@ describe '自己紹介管理機能', type: :system do
   end
 
   shared_examples_for '自己紹介Aの「年齢」が表示されること' do
-    it { expect(page).to have_content 19 }
-  end
-  
-  shared_examples_for '自己紹介Aの「年齢」（String）が表示されること' do
-    it { expect(page).to have_content "19" }
+    it { expect(page).to have_content "19歳" }
   end
 
   shared_examples_for '自己紹介Aの「性別」が表示されること' do
@@ -129,7 +131,7 @@ describe '自己紹介管理機能', type: :system do
   shared_examples_for '自己紹介Bが検索結果に表示されないこと' do
     it {
       expect(page).to_not have_content '2件目の自己紹介'
-      expect(page).to_not have_content 40
+      expect(page).to_not have_content '40歳'
       expect(page).to_not have_content '千葉県浦安市舞浜1-1'
       expect(page).to_not have_content '2023-01-01 00:00:00'
     }
@@ -156,6 +158,9 @@ describe '自己紹介管理機能', type: :system do
       it_behaves_like '自己紹介Aの「住所」が表示されること'
       it_behaves_like '自己紹介Aの「趣味」が表示されること'
       it_behaves_like '自己紹介Aの「登録日時」が表示されること'
+      it '削除済みの自己紹介が表示されないこと' do
+        expect(page).to_not have_content '削除済み自己紹介'
+      end
       
     end
     
@@ -178,7 +183,7 @@ describe '自己紹介管理機能', type: :system do
         # 自己紹介B
         expect(page).to have_content '2件目の自己紹介'
         expect(page).to have_content 'ニケンメノジコショウカイ'
-        expect(page).to have_content 40
+        expect(page).to have_content '40歳'
         expect(page).to have_content '男性'
         expect(page).to have_content '千葉県浦安市舞浜1-1'
         expect(page).to have_content '買い物'
@@ -234,6 +239,16 @@ describe '自己紹介管理機能', type: :system do
       it_behaves_like '「削除」リンクが表示されること'
       
     end
+
+    context '削除済みの自己紹介をURLから直接開く時' do
+      before do
+        visit "/introductions/#{discarded_introduction.id}"
+      end
+      it 'エラーメッセージが表示される' do
+        expect(page).to have_current_path "/"
+        expect(page).to have_content '存在しない社員です。'
+      end
+    end
   end
 
   ################################
@@ -277,7 +292,7 @@ describe '自己紹介管理機能', type: :system do
         it '入力した値が表示されること' do
           expect(page).to have_content '3件目の自己紹介'
           expect(page).to have_content 'サンケンメノジコショウカイ'
-          expect(page).to have_content 40
+          expect(page).to have_content '40歳'
           expect(page).to have_content '男性'
           expect(page).to have_content '北海道'
           expect(page).to have_content '札幌市豊平区羊ケ丘１'
@@ -542,7 +557,7 @@ describe '自己紹介管理機能', type: :system do
       it '自己紹介Aは表示されないこと' do
         expect(page).to_not have_content '1件目の自己紹介'
         expect(page).to_not have_content 'イッケンメノジコショウカイ'
-        expect(page).to_not have_content 19
+        expect(page).to_not have_content '19歳'
         expect(page).to_not have_content '東京都港区西麻布3丁目20−6 杉友ビル2F'
         expect(page).to_not have_content '2023-01-29 00:00:00'
       end

@@ -77,7 +77,8 @@ div.btn-wrapper
             td rowspan="3" = work_experience.server
             td rowspan="3" = work_experience.fw_mw_tool_etc
             td rowspan="3" = work_experience.responsible_process
-            td rowspan="3" = link_to '職務経歴を編集する', edit_work_experience_path, remote: true, class: 'btn btn-primary btn-position', id: 'edit_work_exp'
+            td rowspan="3" = link_to '編集', edit_work_experience_path, remote: true, class: 'btn btn-primary btn-position', id: 'edit_work_exp'
+            td rowspan="3" = link_to '削除', work_experience, method: :delete, data: {confirm: "##{i+1} #{work_experience.project_name}の職務経歴を削除します。よろしいですか？"}, class: 'btn btn-danger btn-position'
           tr
             td rowspan="2" = work_experience.project_detail
             td rowspan="2" = work_experience.role_description

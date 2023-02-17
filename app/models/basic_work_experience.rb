@@ -1,4 +1,6 @@
 class BasicWorkExperience < ApplicationRecord
+  include Discard::Model
+
   belongs_to :introduction
 
   validates :affiliation, length: {maximum: 150}

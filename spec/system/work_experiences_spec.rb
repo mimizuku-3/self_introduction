@@ -60,6 +60,13 @@ describe '職務経歴書管理機能', type: :system do
     responsible_process: '詳細設計'
     )
   }
+  let(:discarded_work_experience) {
+    FactoryBot.create(:work_experience,
+      introduction: introduction_a,
+      project_name: '削除済み職務経歴',
+      discarded_at: '2023-02-17 00:00:00'
+    )
+  }
 
   ################################
   # 共通期待値
@@ -107,6 +114,9 @@ describe '職務経歴書管理機能', type: :system do
       end
       it_behaves_like '自己紹介Aの職務経歴aが表示されること'
       it_behaves_like '自己紹介Aの職務経歴bが表示されること'
+      it '削除済みの職務経歴が表示されないこと' do
+        expect(page).to_not have_content '削除済み職務経歴'
+      end
     end
   end
 
@@ -157,6 +167,16 @@ describe '職務経歴書管理機能', type: :system do
           expect(page).to have_content 'AWS 編集後'
           expect(page).to have_content 'Ruby on Rails 編集後'
           expect(page).to have_content '実装 編集後'
+        end
+      end
+
+      context '削除済みの職務経歴の編集画面をURLから直接開く時' do
+        before do
+          # visit "/introductions/#{discarded_introduction.id}"
+        end
+        it 'エラーメッセージが表示される' do
+          expect(page).to have_current_path "/"
+          expect(page).to have_content '存在しない社員です。'
         end
       end
 
