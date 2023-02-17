@@ -172,7 +172,7 @@ describe '職務経歴書管理機能', type: :system do
 
       context '削除済みの職務経歴の編集画面をURLから直接開く時' do
         before do
-          visit "/work_experiences/#{discarded_work_experience.id}"
+          visit "/work_experiences/#{discarded_work_experience.id}/edit"
         end
         it 'エラーメッセージが表示される' do
           expect(page).to have_current_path "/"
