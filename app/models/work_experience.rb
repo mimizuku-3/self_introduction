@@ -1,4 +1,6 @@
 class WorkExperience < ApplicationRecord
+  include Discard::Model
+
   belongs_to :introduction
 
   validates :start_month, presence: true

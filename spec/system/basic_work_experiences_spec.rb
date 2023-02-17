@@ -28,6 +28,12 @@ describe '職務経歴書管理機能', type: :system do
     self_promotion: 'すぐに順応できるプログラム力です。'
     )
   }
+  let(:discarded_basic_work_experience) {
+    FactoryBot.create(:basic_work_experience,
+      introduction: FactoryBot.create(:introduction),
+      discarded_at: '2023-02-17 00:00:00'
+    )
+  }
 
 
   ################################
@@ -61,6 +67,16 @@ describe '職務経歴書管理機能', type: :system do
         visit basic_work_experience_path(basic_work_experience_a)
       end
       it_behaves_like '自己紹介Aの職務経歴書（基本情報）が表示されること'
+    end
+
+    context '削除済みの職務経歴書（基本情報）をURLから直接開く時' do
+      before do
+        visit "/basic_work_experiences/#{discarded_basic_work_experience.id}"
+      end
+      it 'エラーメッセージが表示される' do
+        expect(page).to have_current_path "/"
+        expect(page).to have_content '存在しない社員です。'
+      end
     end
   end
 

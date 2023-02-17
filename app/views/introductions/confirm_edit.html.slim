@@ -16,7 +16,7 @@ h1 編集内容の確認
       tr
         th = f.label :age
         td
-          =@introduction.age
+          ="#{@introduction.age}歳"
           = f.hidden_field :age
       tr
         th = f.label :sex

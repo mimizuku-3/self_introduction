@@ -13,7 +13,7 @@ div.table-wrapper
         td = @introduction.furigana
       tr
         th= Introduction.human_attribute_name(:age)
-        td = @introduction.age
+        td = "#{@introduction.age}歳"
       tr
         th= Introduction.human_attribute_name(:sex)
         td = @introduction.sex_i18n

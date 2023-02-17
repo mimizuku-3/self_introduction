@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_08_044252) do
+ActiveRecord::Schema.define(version: 2023_02_17_010553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 2023_02_08_044252) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "introduction_id", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_basic_work_experiences_on_discarded_at"
     t.index ["introduction_id"], name: "index_basic_work_experiences_on_introduction_id", unique: true
   end
 
@@ -82,6 +84,8 @@ ActiveRecord::Schema.define(version: 2023_02_08_044252) do
     t.integer "sex", null: false
     t.integer "prefecture_id", null: false
     t.string "furigana"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_introductions_on_discarded_at"
   end
 
   create_table "work_experiences", force: :cascade do |t|
@@ -99,6 +103,8 @@ ActiveRecord::Schema.define(version: 2023_02_08_044252) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "introduction_id", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_work_experiences_on_discarded_at"
     t.index ["introduction_id"], name: "index_work_experiences_on_introduction_id"
   end
 

@@ -3,7 +3,7 @@ class IntroductionsController < ApplicationController
 
   def index
     @q = Introduction.ransack(params[:q])
-    @introductions = @q.result(distinct: true).recent
+    @introductions = @q.result(distinct: true).recent.kept
   end
 
   def new
@@ -89,13 +89,19 @@ class IntroductionsController < ApplicationController
   end
 
   def destroy
-    @introduction.destroy
+    @introduction.discard
+    @introduction.basic_work_experience.discard
+    @introduction.work_experiences.discard_all
     redirect_to introductions_url, notice: "#{@introduction.name} さんの自己紹介を削除しました。"
   end
 
   private
   def find_introduction
     @introduction = Introduction.find(params[:id])
+    if @introduction.discarded?
+      flash[:notice] = "存在しない社員です。"
+      redirect_to ("/")
+    end
   end
 
   def introduction_params

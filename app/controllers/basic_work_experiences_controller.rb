@@ -1,10 +1,5 @@
 class BasicWorkExperiencesController < ApplicationController
   before_action :find_basic_work_experience, only:[:show, :edit, :update]
-
-  def index
-
-  end
-
   def show
   end
 
@@ -22,6 +17,10 @@ class BasicWorkExperiencesController < ApplicationController
   private
   def find_basic_work_experience
     @basic_work_experience = BasicWorkExperience.find(params[:id])
+    if @basic_work_experience.discarded?
+      flash[:notice] = "存在しない社員です。"
+      redirect_to ("/")
+    end
     @introduction = @basic_work_experience.introduction
   end
 

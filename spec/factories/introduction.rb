@@ -7,5 +7,6 @@ FactoryBot.define do
     content {'テストデータです！！'}
     sex {0}
     prefecture_id {1}
+    discarded_at {}
   end
 end

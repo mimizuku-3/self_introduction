@@ -1,5 +1,7 @@
 class Introduction < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
+  include Discard::Model
+
   belongs_to :prefecture
   has_many :hobby_introductions
   has_many :hobbies, through: :hobby_introductions, dependent: :destroy
@@ -22,7 +24,7 @@ class Introduction < ApplicationRecord
   scope :recent, -> {order(created_at: :desc)}
 
   def work_experiences
-    return WorkExperience.where(introduction_id: self.id).order(start_month: :desc)
+    return WorkExperience.where(introduction_id: self.id).kept.order(start_month: :desc)
   end
   
 end

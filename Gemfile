@@ -90,3 +90,6 @@ gem 'pry-nav'
 gem 'rails_autolink'
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
+
+# Use logical delete
+gem 'discard', '~> 1.2'
