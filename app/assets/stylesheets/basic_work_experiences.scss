@@ -40,24 +40,24 @@
   transform: translate(0, 0) scale(0.8);   /* 大きさ0.8倍から等倍にモーダルが拡大される */
 }
 
-.work-exe-wrapper-table {
+.work-exp-wrapper-table {
   width: 1200px;
   margin: 0 auto;
   font-family: "メイリオ" ;
   font-size: 14px;
 }
 
-.work-exe-table table{
+.work-exp-table table{
   table-layout: fixed;
   width: 100%;
   margin-bottom: 5px;
 }
 
-.work-exe-table table, .work-exe-table th, .work-exe-table td {
+.work-exp-table table, .work-exp-table th, .work-exp-table td {
   border: 1px solid gray;
 }
 
-.work-exe-table th {
+.work-exp-table th {
   background-color: #CEFFFF;
   text-align: center;
   font-weight: normal;
@@ -93,4 +93,9 @@
 
 .height200 {
   height: 200px;
+}
+
+// 編集画面
+.middle-form {
+ width: 700px;
 }

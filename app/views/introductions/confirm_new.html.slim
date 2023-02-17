@@ -41,7 +41,7 @@ h1 登録内容の確認
       tr
         th = f.label :content
         td
-          = auto_link(simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div"))
+          = td = auto_link(safe_join(@introduction.content.split("\n"),tag(:br)))
           = f.hidden_field :content
   div.btn-wrapper
     = f.submit '戻る', name: 'back', class: 'btn btn-secondary mr-3 btn-position'
