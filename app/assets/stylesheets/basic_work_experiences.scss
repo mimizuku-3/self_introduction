@@ -39,3 +39,58 @@
   visibility: hidden;
   transform: translate(0, 0) scale(0.8);   /* 大きさ0.8倍から等倍にモーダルが拡大される */
 }
+
+.work-exe-wrapper-table {
+  width: 1200px;
+  margin: 0 auto;
+  font-family: "メイリオ" ;
+  font-size: 14px;
+}
+
+.work-exe-table table{
+  table-layout: fixed;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.work-exe-table table, .work-exe-table th, .work-exe-table td {
+  border: 1px solid gray;
+}
+
+.work-exe-table th {
+  background-color: #CEFFFF;
+  text-align: center;
+  font-weight: normal;
+}
+
+.width01{
+  width: 2%
+}
+
+.width05 {
+  width: 10%;
+}
+
+.width08 {
+  width: 8%;
+}
+
+.width10 {
+  width: 12%;
+}
+
+.width20 {
+  width: 20%;
+}
+
+.width65 {
+  width: 58%;
+}
+
+.width48 {
+  width: 48%;
+}
+
+.height200 {
+  height: 200px;
+}
