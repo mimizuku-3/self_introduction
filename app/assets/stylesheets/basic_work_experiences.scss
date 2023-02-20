@@ -42,56 +42,111 @@
 
 .work-exp-wrapper-table {
   margin: 0 auto;
+  width: 1200px;
   font-family: "メイリオ" ;
-  font-size: 14px;
+  font-size: 11px;
 }
 
-.work-exp-table table{
+.basic-work-exp-table table{
   table-layout: fixed;
   width: 100%;
   margin-bottom: 5px;
 }
 
-.work-exp-table table, .work-exp-table th, .work-exp-table td {
+.basic-work-exp-table table, .basic-work-exp-table th, .basic-work-exp-table td {
   border: 1px solid gray;
 }
 
-.work-exp-table th {
+.basic-work-exp-table th {
   background-color: #CEFFFF;
   text-align: center;
   font-weight: normal;
 }
 
-.width01{
-  width: 2%
+.work-exp-table table{
+  margin-bottom: 0;
+}
+
+.width01 {
+  width: 1%
+}
+
+.width01-5 {
+  width: 1.5%
+}
+
+.width05-3 {
+  width: 5.3%
 }
 
 .width05 {
-  width: 10%;
+  width: 5%
+}
+
+.width06 {
+  width: 6%
+}
+
+.width07 {
+  width: 7%
 }
 
 .width08 {
-  width: 8%;
+  width: 8%
 }
 
-.width10 {
-  width: 12%;
+.width14 {
+  width: 14%;
 }
 
-.width20 {
-  width: 20%;
+.width24 {
+  width: 24%;
 }
 
-.width65 {
-  width: 58%;
+.width49 {
+  width: 49%;
 }
 
-.width48 {
-  width: 48%;
+.width55 {
+  width: 55%;
 }
+
+.width93 {
+  width: 93%;
+}
+
+.width11 {
+  width: 11%
+}
+
+.width40 {
+  width: 40%
+}
+
+.period_year_month {
+  width: 5.3%;
+  text-align: center;
+  font-size: 9px;
+  height: 280px;
+}
+
+.diff_period {
+  text-align: center;
+}
+
+
+
 
 .height200 {
   height: 200px;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-top {
+  vertical-align: top;
 }
 
 // 編集画面
