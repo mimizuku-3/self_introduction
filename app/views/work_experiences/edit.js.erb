@@ -13,6 +13,7 @@ modal.innerHTML = '<%= escape_javascript(render partial: 'edit') %>' ;
 <%# # hiddenクラスを消してモーダルとマスクを表示させます。 %>
 modal.classList.remove('hidden');
 mask.classList.remove('hidden');
+modal.scrollTop =0;
 
 <%# # モーダルの外側（マスク）をクリックするとhiddenクラスが書き込まれ、モーダルとマスクが再び非表示となります。 %>
 mask.addEventListener('click', () => {
