@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_17_010553) do
+ActiveRecord::Schema.define(version: 2023_02_21_050007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2023_02_17_010553) do
     t.string "strong_field", limit: 200
     t.string "strong_technology", limit: 200
     t.string "strong_business", limit: 200
-    t.text "self_promotion"
+    t.text "self_promotion", default: ""
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "introduction_id", null: false
