@@ -16,23 +16,23 @@ class WorkExperience < ApplicationRecord
 
   validate :start_end_check
 
-  enum role: { 
-    zero: 0, 
-    PG: 1, 
-    SE:2, 
-    SE_PG:3, 
+  enum role: {
+    zero: 0,
+    PG: 1,
+    SE:2,
+    SE_PG:3,
     PL:4,
-    PL_PG: 5, 
-    PL_SE: 6, 
-    PL_SE_PG: 7, 
-    PM: 8, 
-    PM_PG: 9, 
-    PM_SE: 10, 
-    PM_SE_PG: 11, 
-    PM_PL: 12, 
-    PM_PL_PG: 13, 
-    PM_PL_SE: 14, 
-    PM_PL_SE_PG: 15, 
+    PL_PG: 5,
+    PL_SE: 6,
+    PL_SE_PG: 7,
+    PM: 8,
+    PM_PG: 9,
+    PM_SE: 10,
+    PM_SE_PG: 11,
+    PM_PL: 12,
+    PM_PL_PG: 13,
+    PM_PL_SE: 14,
+    PM_PL_SE_PG: 15,
   }
 
   def set_role_by_bit_management(roles)

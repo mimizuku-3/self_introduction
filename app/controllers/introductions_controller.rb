@@ -27,7 +27,7 @@ class IntroductionsController < ApplicationController
       render :new
       return
     end
-    
+
     if @introduction.save
       if @hobby_ids != nil
         @hobby_ids.each do |hobby_id|
@@ -44,7 +44,6 @@ class IntroductionsController < ApplicationController
       render :new
     end
   end
-
 
   def complete
   end

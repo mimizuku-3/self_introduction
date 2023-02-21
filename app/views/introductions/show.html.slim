@@ -29,7 +29,7 @@ div.table-wrapper
             span 　
       tr 
         th= Introduction.human_attribute_name(:content)
-        td = auto_link(simple_format(h(@introduction.content), {}, sanitize: false, wrapper_tag: "div"))
+        td = auto_link(safe_join(@introduction.content.split("\n"),tag(:br)))
       tr
         th= Introduction.human_attribute_name(:image)
         td
