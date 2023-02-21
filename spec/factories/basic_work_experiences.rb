@@ -10,5 +10,6 @@ FactoryBot.define do
     strong_technology { "MyString" }
     strong_business { "MyString" }
     self_promotion { "MyText" }
+    discarded_at {}
   end
 end

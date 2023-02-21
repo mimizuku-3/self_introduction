@@ -1,7 +1,4 @@
-// Place all the styles related to the basic_work_experiences controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
+// モーダルウィンドウ
 #mask {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -38,4 +35,155 @@
   opacity: 0;
   visibility: hidden;
   transform: translate(0, 0) scale(0.8);   /* 大きさ0.8倍から等倍にモーダルが拡大される */
+}
+
+// ----------------------------------------------
+// 職務経歴書 表示画面
+// ----------------------------------------------
+.basic-work-exp {
+  margin-bottom: 30px;
+}
+
+.work-exp-wrapper-table h1 {
+  text-align: center;
+  margin-top: 10px;
+  color: black;
+}
+
+.work-exp-wrapper-table {
+  margin: auto;
+  width: 1400px;
+  font-family: "メイリオ" ;
+  font-size: 11px;
+}
+
+.basic-work-exp-table {
+  margin-top: 5px;
+}
+
+.basic-work-exp-table table{
+  table-layout: fixed;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.basic-work-exp-table th, .basic-work-exp-table td {
+  border: 1px solid gray;
+  border-collapse: collapse; 
+}
+
+.basic-work-exp-table th {
+  background-color: #CEFFFF;
+  text-align: center;
+  font-weight: normal;
+}
+
+.work-exp-wrapper-table td {
+  background-color: white;
+}
+
+.work-exp-table table{
+  margin-bottom: 0;
+}
+
+// 個人情報
+.furigana-column {
+  width: 7%
+}
+
+.furigana-value-column {
+  width: 52%
+}
+
+.affiliation-column {
+  width: 12%
+}
+
+.affiliation-value-column {
+  width: 24%
+}
+
+.btn-column {
+  width: 5%;
+  text-align: center;
+}
+
+.visibility_collapse {
+  visibility: collapse;
+}
+
+// 職務経歴
+.period-column {
+  width: 13%
+}
+
+.project_detail-column {
+  height: 15px;
+  width: 47%
+}
+
+.role-column {
+  width: 7%;
+  text-align: center;
+}
+.language-column {
+  width: 5%;
+  text-align: center;
+}
+.database-column {
+  width: 6%;
+  text-align: center;
+}
+.server-column {
+  width: 5%;
+  text-align: center;
+}
+.fw_mw_tool_etc-column {
+  width: 7%;
+  text-align: center;
+}
+.responsible_process-column {
+  width: 6%;
+  text-align: center;
+}
+
+.work_exp_no {
+  width: 1.4%
+}
+
+.period_year_month {
+  width: 5.3%;
+  text-align: center;
+  font-size: 9px;
+  height: 280px;
+}
+
+.hyphen {
+  width: 1%;
+  text-align: center;
+}
+
+.diff_period {
+  text-align: center;
+}
+
+.height200 {
+  height: 200px;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-top {
+  vertical-align: top;
+}
+
+.btn {
+  margin-bottom: 20px;
+}
+
+// 編集画面
+.middle-form {
+ width: 700px;
 }

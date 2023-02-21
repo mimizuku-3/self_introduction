@@ -1,87 +1,105 @@
-h1 職務経歴書
-
-div.table-wrapper
-  table
-    tbody
-      tr
-        th = Introduction.human_attribute_name(:furigana)
-        td = @introduction.furigana
-        th = BasicWorkExperience.human_attribute_name(:affiliation)
-        td = @basic_work_experience.affiliation
-      tr
-        th = '氏名'
-        td = @introduction.name
-        th = Introduction.human_attribute_name(:sex)
-        td = @introduction.sex_i18n
-      tr
-        th = BasicWorkExperience.human_attribute_name(:nearest_station)
-        td = @basic_work_experience.nearest_station
-        th = Introduction.human_attribute_name(:age)
-        td = "#{@introduction.age}歳"
-      tr
-        th = BasicWorkExperience.human_attribute_name(:date_work_start)
-        td = @basic_work_experience.date_work_start
-        th = BasicWorkExperience.human_attribute_name(:is_married)
-        td = @basic_work_experience.is_married ? 'あり' : 'なし'
-      tr
-        th = BasicWorkExperience.human_attribute_name(:carrer_period)
-        td = @basic_work_experience.carrer_period
-        th =
-        td =
-div.table-wrapper
-  table
-    tbody
-      tr
-        th = BasicWorkExperience.human_attribute_name(:strong_field)
-        td = @basic_work_experience.strong_field
-      tr
-        th = BasicWorkExperience.human_attribute_name(:strong_technology)
-        td = @basic_work_experience.strong_technology
-      tr
-        th = BasicWorkExperience.human_attribute_name(:strong_business)
-        td = @basic_work_experience.strong_business
-div.table-wrapper
-  table
-    tbody
-      tr
-        th = BasicWorkExperience.human_attribute_name(:self_promotion)
-        td = auto_link(simple_format(h(@basic_work_experience.self_promotion), {}, sanitize: false, wrapper_tag: "div"))
-div.btn-wrapper
-  = link_to '個人情報・自己PRを編集する', "/basic_work_experiences/#{@basic_work_experience.id}/edit", class: 'btn btn-primary btn-position'
-.table-wrapper
-  table
-    tbody
-      tr
-        th colspan="4" = '期間'
-        th = '業務内容'
-        th = WorkExperience.human_attribute_name(:role)
-        th = WorkExperience.human_attribute_name(:language)
-        th = WorkExperience.human_attribute_name(:database)
-        th = WorkExperience.human_attribute_name(:server)
-        th = WorkExperience.human_attribute_name(:fw_mw_tool_etc)
-        th = WorkExperience.human_attribute_name(:responsible_process)
-        th
-        .btn-wrapper
-          = link_to '職務経歴を追加する', "/introductions/#{@introduction.id}/work_experiences/new", remote: true, class: 'btn btn-primary btn-position'
+.work-exp-wrapper-table
+  h1 職務経歴書
+  .basic-work-exp
+    .basic-work-exp-table
+      table
+        tbody
+          col span="1"
+          col span="1"
+          col span="1"
+          col span="1"
+          col span="1" class="visibility_collapse"
+          tr
+            th.furigana-column = Introduction.human_attribute_name(:furigana)
+            td.furigana-value-column = @introduction.furigana
+            th.affiliation-column = BasicWorkExperience.human_attribute_name(:affiliation)
+            td.affiliation-value-column = @basic_work_experience.affiliation
+          tr
+            th = '氏名'
+            td = @introduction.name
+            th = Introduction.human_attribute_name(:sex)
+            td = @introduction.sex_i18n
+          tr
+            th = BasicWorkExperience.human_attribute_name(:nearest_station)
+            td = @basic_work_experience.nearest_station
+            th = Introduction.human_attribute_name(:age)
+            td = "#{@introduction.age}歳"
+          tr
+            th = BasicWorkExperience.human_attribute_name(:date_work_start)
+            td = @basic_work_experience.date_work_start
+            th = BasicWorkExperience.human_attribute_name(:is_married)
+            td = @basic_work_experience.is_married ? 'あり' : 'なし'
+          tr
+            th = BasicWorkExperience.human_attribute_name(:carrer_period)
+            td = @basic_work_experience.carrer_period
+            th =
+            td =
+    .basic-work-exp-table
+      table
+        tbody
+          col span="1"
+          col span="1"
+          col span="1" class="visibility_collapse"
+          tr
+            th.furigana-column = BasicWorkExperience.human_attribute_name(:strong_field)
+            td = @basic_work_experience.strong_field
+            td.btn-column
+          tr
+            th = BasicWorkExperience.human_attribute_name(:strong_technology)
+            td = @basic_work_experience.strong_technology
+          tr
+            th = BasicWorkExperience.human_attribute_name(:strong_business)
+            td = @basic_work_experience.strong_business
+    .basic-work-exp-table
+      table
+        tbody
+          col span="1"
+          col span="1"
+          col span="1" class="visibility_collapse"
+          tr
+            th.furigana-column = BasicWorkExperience.human_attribute_name(:self_promotion)
+            td. = auto_link(safe_join(@basic_work_experience.self_promotion.split("\n"),tag(:br)))
+            td.btn-column
+    .btn-wrapper
+      = link_to '個人情報・自己PRを編集する', "/basic_work_experiences/#{@basic_work_experience.id}/edit", class: 'btn btn-primary btn-sm'
+  .basic-work-exp-table.work-exp-table
+    table
+      tbody
+        tr height="90px"
+          th.period-column = '期間'
+          th.project_detail-column = '業務内容'
+          th.role-column = WorkExperience.human_attribute_name(:role)
+          th.language-column = WorkExperience.human_attribute_name(:language)
+          th.database-column = WorkExperience.human_attribute_name(:database)
+          th.server-column = WorkExperience.human_attribute_name(:server)
+          th.fw_mw_tool_etc-column = WorkExperience.human_attribute_name(:fw_mw_tool_etc)
+          th.responsible_process-column = WorkExperience.human_attribute_name(:responsible_process)
+          th.btn-column = '編集/削除'
+    table
       - if @introduction.work_experiences.present?
         - @introduction.work_experiences.each_with_index do |work_experience, i|
-          tr
-            td rowspan="3" = i+1
-            td rowspan="2" = work_experience.start_month.strftime("%Y年%m月")
-            td rowspan="2" = '-'
-            td rowspan="2" = work_experience.end_month.strftime("%Y年%m月")
-            td = work_experience.project_name
-            td = work_experience.role_i18n
-            td rowspan="3" = work_experience.language
-            td rowspan="3" = work_experience.database
-            td rowspan="3" = work_experience.server
-            td rowspan="3" = work_experience.fw_mw_tool_etc
-            td rowspan="3" = work_experience.responsible_process
-            td rowspan="3" = link_to '職務経歴を編集する', edit_work_experience_path, remote: true, class: 'btn btn-primary btn-position', id: 'edit_work_exp'
-          tr
-            td rowspan="2" = work_experience.project_detail
-            td rowspan="2" = work_experience.role_description
-          tr
-            td colspan="3" = work_experience.diff_years_months(work_experience.start_month, work_experience.end_month)
-#mask.hidden 
-#modal.hidden 
+          tbody
+            tr
+              th.work_exp_no height="300" rowspan="3" = i+1
+              td.period_year_month rowspan="2" = work_experience.start_month.strftime("%Y年%m月")
+              td.hyphen rowspan="2" = '-'
+              td.period_year_month.width.text-center rowspan="2" = work_experience.end_month.strftime("%Y年%m月")
+              td.project_detail-column = work_experience.project_name
+              td.role-column = work_experience.role_i18n
+              td.language-column rowspan="3" = safe_join(work_experience.language.split("\n"),tag(:br))
+              td.database-column rowspan="3" = safe_join(work_experience.database.split("\n"),tag(:br))
+              td.server-column rowspan="3" = safe_join(work_experience.server.split("\n"),tag(:br))
+              td.fw_mw_tool_etc-column rowspan="3" = safe_join(work_experience.fw_mw_tool_etc.split("\n"),tag(:br))
+              td.responsible_process-column rowspan="3" = safe_join(work_experience.responsible_process.split("\n"),tag(:br))
+              td.btn-column rowspan="3"
+                = link_to '編集', edit_work_experience_path(work_experience), remote: true, id: 'edit_work_exp', class: 'btn btn-primary btn-sm'
+                = link_to '削除', work_experience, method: :delete, data: {confirm: "##{i+1} #{work_experience.project_name}の職務経歴を削除します。よろしいですか？"}, class: 'btn btn-danger btn-sm'
+            tr
+              td.text-top rowspan="2" = safe_join(work_experience.project_detail.split("\n"),tag(:br))
+              td.text-center rowspan="2" = safe_join(work_experience.role_description.split("\n"),tag(:br))
+            tr
+              td.diff_period colspan="3" = work_experience.diff_years_months(work_experience.start_month, work_experience.end_month)
+    .btn-wrapper
+      = link_to '職務経歴を追加する', "/introductions/#{@introduction.id}/work_experiences/new", remote: true, class: 'btn btn-primary btn-sm'
+  #mask.hidden
+  #modal.hidden

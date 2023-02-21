@@ -12,6 +12,7 @@ FactoryBot.define do
     server { "Apache Tomcat" }
     fw_mw_tool_etc { "Laravel" }
     responsible_process { "詳細設計" }
+    discarded_at {}
   end
 
   trait :first_work_experience do
