@@ -1,9 +1,10 @@
-h1 自己紹介の編集
-
-- if @introduction.errors.present?
-  ul#error_explanation
-    - @introduction.errors.full_messages.each do |message|
-      li= message
+.title-message-container
+  h1 自己紹介の編集
+  - if @introduction.errors.present?
+    .message-container
+      ul#error_explanation
+        - @introduction.errors.full_messages.each do |message|
+          li= message
 
 = form_with model: @introduction, url: confirm_introduction_path, local: true, multipart: true do |f|
   div.table-wrapper

@@ -20,3 +20,41 @@ mask.addEventListener('click', () => {
   modal.classList.add('hidden');
   mask.classList.add('hidden');
   });
+
+
+<%# ------------------------------------- %>
+<%# プレースホルダー %>
+<%# ------------------------------------- %>
+<%# 役割詳細 %>
+var e = document.getElementById("work_experience_role_description");
+var s = `チーム:3~6人
+\（内訳\)
+SE: 1人
+PG: 2~5名
+\（担当\）
+PG`;
+e.placeholder = s;
+
+<%# FW・MWツール等 %>
+var e = document.getElementById("work_experience_fw_mw_tool_etc");
+var s = `\[PHP\]
+Larabel7
+Fuel
+PhpUnit
+\[環境\]
+Docker
+\[ツール\]
+Slack
+GitLab
+Gather
+Jira
+Confluence`;
+e.placeholder = s;
+
+<%# 担当工程 %>
+var e = document.getElementById("work_experience_responsible_process");
+var s = `基本設計
+詳細設計
+実装・単体
+結合テスト`;
+e.placeholder = s;
