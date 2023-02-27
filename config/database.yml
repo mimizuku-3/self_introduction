@@ -81,8 +81,5 @@ test:
 production:
   <<: *default
   database: self_introduction_production
-  username: <%= Rails.application.credentials.db[:user_name] %>
-  password: <%= Rails.application.credentials.db[:password] %>
-  host: <%= Rails.application.credentials.db[:endpoint] %>
-  pool: 20
-  timeout: 1000
+  username: self_introduction
+  password: <%= ENV['SELF_INTRODUCTION_DATABASE_PASSWORD'] %>
