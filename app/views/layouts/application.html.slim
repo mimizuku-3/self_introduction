@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title
+      | SelfIntroduction
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .app-title.navbar.navbar-expand-md.navbar-light.bg-light 
+      a.navbar-brand.nav-link.active aria-current="page" href="/" 自己紹介
+      .navbar-nav.me-auto.mb-2.mb-lg-0
+        li.nav-item
+          a.nav-link.active aria-current="page" href="/" 検索/一覧
+        li.nav-item
+          a.nav-link.active aria-current="page" href="/introductions/new" 新規登録
+    .container
+      - if flash.notice.present?
+        .alert.alert-success= flash.notice
+    = yield

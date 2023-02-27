@@ -1,0 +1,60 @@
+h1 職務経歴書基本情報の編集
+- if @basic_work_experience.errors.present?
+  ul#error_explanation
+    - @basic_work_experience.errors.full_messages.each do |message|
+      li= message
+
+= form_with model: @basic_work_experience, local: true do |f|
+  div.table-wrapper
+    table
+      tr
+        th = f.label :affiliation
+        td
+          .form-group
+            = f.text_field :affiliation, class: 'form middle-form', id: 'basic_work_experience_affiliation'
+      tr
+        th = f.label :nearest_station
+        td
+          .form-group
+            = f.text_field :nearest_station, class: 'form middle-form', id: 'basic_work_experience_nearest_station'
+      tr
+        th = f.label :date_work_start
+        td
+          .form-group
+            = f.date_field  :date_work_start, class: 'form-control', id: 'basic_work_experience_date_work_start'
+      tr
+        th = f.label :is_married
+        td
+          .form-group
+            = f.radio_button :is_married, false, class: 'radio'
+            = f.label :is_married_false, "なし"
+            = f.radio_button :is_married, true, class: 'radio'
+            = f.label :is_married_true, "あり"
+      tr
+        th = f.label :carrer_period
+        td
+          .form-group
+            = f.text_field :carrer_period, class: 'form middle-form', id: 'basic_work_experience_carrer_period'
+      tr
+        th = f.label :strong_field
+        td
+          .form-group
+            = f.text_field :strong_field, class: 'form middle-form', id: 'basic_work_experience_strong_field'
+      tr
+        th = f.label :strong_technology
+        td
+          .form-group
+            = f.text_field :strong_technology, class: 'form middle-form', id: 'basic_work_experience_strong_technology'
+      tr
+        th = f.label :strong_business
+        td
+          .form-group
+            = f.text_field :strong_business, class: 'form middle-form', id: 'basic_work_experience_strong_business'
+      tr
+        th = f.label :self_promotion
+        td
+          .form-group
+            = f.text_area :self_promotion, class: 'content form', id: 'basic_work_experience_self_promotion'
+
+  div.btn-wrapper
+    = f.submit '保存して戻る', class: 'btn btn-primary btn-position'

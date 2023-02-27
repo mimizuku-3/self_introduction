@@ -1,0 +1,60 @@
+<%# -------------------------------------------------------- %>
+<%# モーダルウィンドウとして登録画面を開く %>
+<%# -------------------------------------------------------- %>
+<%# # モーダルを取得 %>
+var modal = document.getElementById('modal');
+<%# # マスクを取得 %>
+var mask = document.getElementById('mask');
+
+<%# # モーダルの中身をshowビューに置き換えます。
+# 部分テンプレートのパス、localsの値はアプリにより異なります。 %>
+modal.innerHTML = '<%= escape_javascript(render partial: 'new') %>' ;
+
+<%# # hiddenクラスを消してモーダルとマスクを表示させます。 %>
+modal.classList.remove('hidden');
+mask.classList.remove('hidden');
+modal.scrollTop =0;
+
+<%# # モーダルの外側（マスク）をクリックするとhiddenクラスが書き込まれ、モーダルとマスクが再び非表示となります。 %>
+mask.addEventListener('click', () => {
+  modal.classList.add('hidden');
+  mask.classList.add('hidden');
+  });
+
+
+<%# ------------------------------------- %>
+<%# プレースホルダー %>
+<%# ------------------------------------- %>
+<%# 役割詳細 %>
+var e = document.getElementById("work_experience_role_description");
+var s = `チーム:3~6人
+\（内訳\)
+SE: 1人
+PG: 2~5名
+\（担当\）
+PG`;
+e.placeholder = s;
+
+<%# FW・MWツール等 %>
+var e = document.getElementById("work_experience_fw_mw_tool_etc");
+var s = `\[PHP\]
+Larabel7
+Fuel
+PhpUnit
+\[環境\]
+Docker
+\[ツール\]
+Slack
+GitLab
+Gather
+Jira
+Confluence`;
+e.placeholder = s;
+
+<%# 担当工程 %>
+var e = document.getElementById("work_experience_responsible_process");
+var s = `基本設計
+詳細設計
+実装・単体
+結合テスト`;
+e.placeholder = s;

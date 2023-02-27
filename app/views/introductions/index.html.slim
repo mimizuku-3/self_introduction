@@ -1,0 +1,80 @@
+div.search-container
+  h1 検索
+
+  = search_form_for @q, class: 'mb-5' do |f|
+    .form-group.row
+      = f.label :name_cont, "名前", class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        = f.search_field :name_cont, class: 'form'
+    .form-group.row
+      = f.label :furigana_cont, "フリガナ", class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        = f.search_field :furigana_cont, class: 'form'
+    .form-group.row
+      = f.label :sex_eq, "性別", class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        = f.radio_button :sex_eq, '', {:checked => true, class: 'radio', id: 'q_sex'}
+        = f.label :sex, "指定なし"
+        = f.radio_button :sex_eq, 0, {class: 'radio', id: 'q_sex_0'}
+        = f.label :sex_0, "男性"
+        = f.radio_button :sex_eq, 1, {class: 'radio', id: 'q_sex_1'}
+        = f.label :sex_1, "女性"
+    .form-group.row
+      = f.label :age, "年齢", class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        = f.number_field :age_gteq, class: 'form', id: 'age_from'
+        span 歳以上
+        = f.number_field :age_lteq, class: 'form', id: 'age_end'
+        span 歳以下
+    .form-group.row
+      = f.label :prefecture_id_eq, '住所（都道府県）', class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        = f.collection_select(:prefecture_id_eq, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select form"})
+    .form-group.row
+      = f.label :hobby_ids, "趣味", class: 'col-sm-2 col-form-label'
+      .col-sm-10
+          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true, class: 'checkbox'}, 1, ''
+          = f.label :hobby_introductions_hobby_id_eq_any_1, "映画鑑賞"
+          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true, class: 'checkbox'}, 2, ''
+          = f.label :hobby_introductions_hobby_id_eq_any_2, "読書"
+          = f.check_box :hobby_introductions_hobby_id_eq_any, {multiple: true, class: 'checkbox'}, 3, ''
+          = f.label :hobby_introductions_hobby_id_eq_any_3, "買い物"
+    .form-group
+      = f.submit class: 'btn btn-primary btn-position'
+      / = f.submit 'リセット', type: :reset, class: 'btn btn-outline-primary btn-position'
+
+= link_to '新規登録', new_introduction_path, class: 'btn btn-primary btn-position'
+
+// 一覧表示
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= Introduction.human_attribute_name(:name)
+      th= Introduction.human_attribute_name(:furigana)
+      th= Introduction.human_attribute_name(:age)
+      th= Introduction.human_attribute_name(:sex)
+      th= Introduction.human_attribute_name(:address)
+      th= Introduction.human_attribute_name(:hobby_ids)
+      th= Introduction.human_attribute_name(:created_at)
+      th= Introduction.human_attribute_name(:updated_at)
+      th
+      th
+    tbody
+      - @introductions.each do |introduction|
+        tr
+          td = link_to introduction.name, introduction
+          td = introduction.furigana
+          td = "#{introduction.age}歳"
+          td = introduction.sex_i18n
+          td = introduction.prefecture.name + introduction.address
+          td
+            - sorted_hobbies = introduction.hobbies.sort_by {|hobby| hobby[:id]}
+            - sorted_hobbies.each do |hobby|
+              = hobby.hobby_name
+              span 　
+          td = introduction.created_at
+          td = introduction.updated_at
+          td = link_to '編集', edit_introduction_path(introduction), class: 'btn btn-primary mr-3'
+          td = link_to '削除', introduction, method: :delete, data: {confirm: "#{introduction.name}さんの自己紹介を削除します。よろしいですか？"}, class: 'btn btn-danger'
+          td = link_to '職務経歴書の確認・変更', basic_work_experience_path(introduction.basic_work_experience), class: 'btn btn-primary mr-3'

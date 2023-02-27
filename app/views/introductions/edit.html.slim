@@ -1,0 +1,65 @@
+.title-message-container
+  h1 自己紹介の編集
+  - if @introduction.errors.present?
+    .message-container
+      ul#error_explanation
+        - @introduction.errors.full_messages.each do |message|
+          li= message
+
+= form_with model: @introduction, url: confirm_introduction_path, local: true, multipart: true do |f|
+  div.table-wrapper
+    table
+      tr
+        th = f.label :name
+        td
+          .form-group
+            = f.text_field :name, class: 'form', id: 'introduction_name'
+      tr
+        th = f.label :furigana
+        td
+          .form-group
+            = f.text_field :furigana, class: 'form', id: 'introduction_furigana'
+      tr
+        th = f.label :age
+        td
+          .form-group
+            = f.number_field :age, class: 'form', id: 'introduction_age'
+      tr
+        th = f.label :sex
+        td
+          .form-group
+            = f.radio_button :sex, :male, class: 'radio'
+            = f.label :sex_male, "男性"
+            = f.radio_button :sex, :female, class: 'radio'
+            = f.label :sex_female, "女性"
+            // Todo: enumを日本語表記できないか
+      tr
+        th = f.label :address
+        td
+          .form-group
+            = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"prefecture-select form"})
+            = f.text_field :address, class: 'address form', id: 'introduction_address'
+      tr
+        th = f.label :hobby_ids
+        td
+          .form-group
+            = f.collection_check_boxes(:hobby_ids, Hobby.all, :id, :hobby_name) do |b|
+              label
+                = b.check_box class: 'checkbox' do
+                  = b.check_box + b.text
+                end
+                = b.label {b.text}
+      tr
+        th = f.label :content
+        td
+          .form-group
+            = f.text_area :content, class: 'content form', id: 'introduction_content'
+      tr
+        th = f.label :image
+        td
+          - if @introduction.image.attached?
+            = image_tag @introduction.image.variant(resize: "500x300>").processed
+          .form-group
+            = f.file_field :image, id: 'introduction_image', class: 'form-control'
+  div.btn-wrapper
+    = f.submit '確認', class: 'btn btn-primary btn-position'
