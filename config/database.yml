@@ -81,5 +81,6 @@ test:
 production:
   <<: *default
   database: self_introduction_production
-  username: self_introduction
-  password: <%= ENV['SELF_INTRODUCTION_DATABASE_PASSWORD'] %>
+  username: postgres
+  password: Aimizu4869!
+  host: self-intro.cl0u3yj4qlig.ap-northeast-1.rds.amazonaws.com
