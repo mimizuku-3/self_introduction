@@ -62,9 +62,9 @@ ActiveRecord::Schema.define(version: 2023_02_21_050007) do
   end
 
   create_table "hobbies", force: :cascade do |t|
+    t.string "hobby_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "hobby_name", null: false
   end
 
   create_table "hobby_introductions", force: :cascade do |t|
